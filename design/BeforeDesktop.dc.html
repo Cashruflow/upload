@@ -1,0 +1,210 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <style>
+    body { margin:0; font-family:-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+    a { color:#6ab0f5; text-decoration:none; }
+    a:hover { color:#8cc4ff; }
+    .bd * { box-sizing:border-box; }
+    /* Значения ниже сняты с реального /slots: локальный CSS страницы + то,
+       что перебивает /theme.css (btnCss с !important, ui_btn_force=1). */
+    .bd { --brand:#00a0ff; }
+  </style>
+</helmet>
+
+<div class="bd" style="width:1440px; height:1080px; background:#0f0f0f; color:#fff; display:flex; overflow:hidden; position:relative">
+
+  <!-- САЙДБАР ПОРТАЛА (sidebar.js, 230px, position:fixed) -->
+  <div style="width:230px; flex:0 0 230px; background:#0a0a0a; border-right:1px solid #1a1a1a; padding:16px 0; display:flex; flex-direction:column">
+    <div style="padding:6px 20px 18px; display:flex; align-items:center; gap:8px; font-size:16px; font-weight:700">
+      <span style="width:18px; height:18px; border-radius:5px; background:#00a0ff; display:inline-block"></span>
+      CashFlow <span style="font-size:11px; color:#555; font-weight:400">v1.9</span>
+    </div>
+    <div style="padding:14px 20px 6px; font-size:10px; letter-spacing:.08em; color:#555; text-transform:uppercase">Работа</div>
+    <div style="display:flex; flex-direction:column">
+      <div style="display:flex; align-items:center; gap:11px; padding:9px 20px; color:#aaa; font-size:14px; border-left:3px solid transparent">Уведомления</div>
+      <div style="display:flex; align-items:center; gap:11px; padding:9px 20px; color:#aaa; font-size:14px; border-left:3px solid transparent">Неделя</div>
+      <div style="display:flex; align-items:center; gap:11px; padding:9px 20px; color:#aaa; font-size:14px; border-left:3px solid transparent">Бэклог</div>
+      <div style="display:flex; align-items:center; gap:11px; padding:9px 20px; color:#aaa; font-size:14px; border-left:3px solid transparent">Проекты</div>
+      <div style="display:flex; align-items:center; gap:11px; padding:9px 20px; color:#aaa; font-size:14px; border-left:3px solid transparent">Клиенты</div>
+    </div>
+    <div style="padding:14px 20px 6px; font-size:10px; letter-spacing:.08em; color:#555; text-transform:uppercase">AI-CRM</div>
+    <div style="display:flex; align-items:center; gap:11px; padding:9px 20px; color:#aaa; font-size:14px; border-left:3px solid transparent">Лиды</div>
+    <div style="margin-top:auto; padding:14px 20px; border-top:1px solid #1a1a1a; color:#666; font-size:12px">Настройки</div>
+  </div>
+
+  <!-- КОНТЕНТ -->
+  <div style="flex:1; min-width:0; display:flex; flex-direction:column">
+
+    <!-- header: 16px 24px, border-bottom #222, всё в одну flex-строку -->
+    <div style="padding:16px 24px; border-bottom:1px solid #222; display:flex; justify-content:space-between; align-items:center; gap:12px">
+      <div style="font-size:18px; font-weight:700">Слоты — расписание</div>
+      <div style="font-size:12.5px; color:#8b8b8b">Сейчас: 22 авг. 2026 г., 21:14:07 (Europe/Samara)</div>
+      <div style="font-size:12px; color:#4caf7d; opacity:0">Сохранено</div>
+    </div>
+
+    <!-- .container{padding:44px; max-width:760px; margin:0 auto} — 760 колонка в 1210 доступных -->
+    <div style="padding:44px; max-width:760px; width:760px; margin:0 auto">
+
+      <!-- КАРТОЧКА 1 -->
+      <div style="background:#141414; border:1px solid #232323; border-radius:12px; padding:20px; margin-bottom:16px">
+        <div style="font-size:14px; color:#ddd; margin-bottom:14px; font-weight:700">Набор доступности</div>
+
+        <div style="display:flex; gap:10px; align-items:center; margin-bottom:6px; flex-wrap:wrap">
+          <div>
+            <div style="font-size:11px; color:#8b8b8b; margin-bottom:5px">Название</div>
+            <div style="width:260px; background:#1a1a1a; border:1px solid #2a2a2a; border-radius:8px; padding:9px 11px; font-size:13px; color:#fff">Консультации</div>
+          </div>
+          <div>
+            <div style="font-size:11px; color:#8b8b8b; margin-bottom:5px">Часовой пояс</div>
+            <div style="background:#1a1a1a; border:1px solid #2a2a2a; border-radius:8px; padding:9px 11px; font-size:13px; color:#fff; display:flex; align-items:center; gap:26px">Europe/Samara (МСК+1) <span style="color:#7a7a7a">▾</span></div>
+          </div>
+        </div>
+
+        <div style="margin-top:10px">
+          <div style="font-size:11px; color:#8b8b8b; margin-bottom:5px; line-height:1.45">ICS-ссылки на Google Календарь (Настройки календаря → «Интеграция» → «Секретный адрес в формате iCal», заканчивается на .ics) — вырезают занятые часы. Публичная ссылка на страницу записи (calendar.google.com/.../appointments/... или calendar.app.google/...) сюда НЕ подходит — это другая ссылка.</div>
+          <div style="display:flex; flex-wrap:wrap; gap:6px; align-items:center; background:#1a1a1a; border:1px solid #2a2a2a; border-radius:8px; padding:8px 10px; min-height:20px">
+            <span style="display:inline-flex; align-items:center; gap:6px; background:#212121; border:1px solid #303030; border-radius:8px; padding:5px 8px 5px 11px; font-size:12px; color:#e8e8e8">https://calendar.google.com/calendar/ical/kon…<span style="opacity:.5; padding:0 2px">✕</span></span>
+          </div>
+          <div style="margin-top:6px; display:flex; gap:8px; align-items:center; flex-wrap:wrap">
+            <div style="flex:1; min-width:260px; background:#1a1a1a; border:1px solid #2a2a2a; border-radius:8px; padding:9px 11px; font-size:13px; color:#666">https://calendar.google.com/calendar/ical/.../basic.ics</div>
+            <div style="border:1px solid #2a2a2a; border-radius:50%; width:28px; height:28px; color:#00a0ff; display:flex; align-items:center; justify-content:center; font-size:14px">＋</div>
+            <!-- .btn.gh: в разметке серая (#1a1a1a/#ddd/#2a2a2a), на экране — ghost-роль из /set -->
+            <div style="display:inline-flex; align-items:center; justify-content:center; background:transparent; color:#cccccc; border:1px solid #333333; border-radius:8px; padding:10px 18px; font-size:13px; font-weight:500">Проверить ссылки</div>
+          </div>
+        </div>
+
+        <div style="display:flex; gap:10px; align-items:center; flex-wrap:wrap; margin-top:14px; padding-top:14px; border-top:1px solid #1c1c1c">
+          <div>
+            <div style="font-size:11px; color:#8b8b8b; margin-bottom:5px">Длительность встречи</div>
+            <div style="background:#1a1a1a; border:1px solid #2a2a2a; border-radius:8px; padding:9px 11px; font-size:13px; display:flex; gap:18px; align-items:center">30 мин <span style="color:#7a7a7a">▾</span></div>
+          </div>
+          <div>
+            <div style="font-size:11px; color:#8b8b8b; margin-bottom:5px">Буфер до, мин</div>
+            <div style="width:80px; background:#1a1a1a; border:1px solid #2a2a2a; border-radius:8px; padding:9px 11px; font-size:13px">0</div>
+          </div>
+          <div>
+            <div style="font-size:11px; color:#8b8b8b; margin-bottom:5px">Буфер после, мин</div>
+            <div style="width:80px; background:#1a1a1a; border:1px solid #2a2a2a; border-radius:8px; padding:9px 11px; font-size:13px">30</div>
+          </div>
+          <div>
+            <div style="font-size:11px; color:#8b8b8b; margin-bottom:5px">Не раньше чем за, ч</div>
+            <div style="width:80px; background:#1a1a1a; border:1px solid #2a2a2a; border-radius:8px; padding:9px 11px; font-size:13px">4</div>
+          </div>
+          <div>
+            <div style="font-size:11px; color:#8b8b8b; margin-bottom:5px">Горизонт, дн</div>
+            <div style="width:80px; background:#1a1a1a; border:1px solid #2a2a2a; border-radius:8px; padding:9px 11px; font-size:13px">30</div>
+          </div>
+          <div>
+            <div style="font-size:11px; color:#8b8b8b; margin-bottom:5px">Встреч в день</div>
+            <div style="background:#1a1a1a; border:1px solid #2a2a2a; border-radius:8px; padding:9px 11px; font-size:13px; display:flex; gap:18px; align-items:center">Без ограничения <span style="color:#7a7a7a">▾</span></div>
+          </div>
+        </div>
+
+        <div style="font-size:11px; color:#8b8b8b; margin-top:8px; line-height:1.45">Буфер после клиента не может быть меньше 30 минут — сервер сам поднимет значение при сохранении. Клиенты этих настроек не видят.</div>
+        <div style="font-size:11px; color:#aaa; margin-top:8px">Применяется к 2 страниц(е) бронирования: Клиника Смайл, Иванов И.</div>
+      </div>
+
+      <!-- КАРТОЧКА 2 -->
+      <div style="background:#141414; border:1px solid #232323; border-radius:12px; padding:20px; margin-bottom:16px">
+        <div style="font-size:14px; color:#ddd; margin-bottom:14px; font-weight:700">Рабочие часы по дням недели</div>
+
+        <div style="display:flex; align-items:flex-start; gap:10px; padding:9px 0; border-bottom:1px solid #1c1c1c">
+          <div style="width:110px; display:flex; align-items:center; gap:8px; font-size:13px; padding-top:8px"><span style="width:16px; height:16px; border-radius:3px; background:#00a0ff; display:inline-block"></span> Пн</div>
+          <div style="flex:1; min-width:220px; display:flex; flex-direction:column; gap:6px">
+            <div style="display:flex; align-items:center; gap:6px">
+              <div style="background:#1a1a1a; border:1px solid #2a2a2a; border-radius:8px; padding:6px 8px; font-size:12.5px; display:flex; gap:14px">10:00 <span style="color:#7a7a7a">▾</span></div>
+              <span style="font-size:12.5px; color:#ddd">—</span>
+              <div style="background:#1a1a1a; border:1px solid #2a2a2a; border-radius:8px; padding:6px 8px; font-size:12.5px; display:flex; gap:14px">19:00 <span style="color:#7a7a7a">▾</span></div>
+              <span style="color:#888; padding:0 4px; font-size:16px">×</span>
+            </div>
+          </div>
+          <div style="display:flex; gap:4px; padding-top:6px">
+            <span style="color:#888; font-size:14px; padding:2px 6px">＋</span>
+            <span style="color:#888; font-size:14px; padding:2px 6px">⧉</span>
+          </div>
+        </div>
+
+        <div style="display:flex; align-items:flex-start; gap:10px; padding:9px 0; border-bottom:1px solid #1c1c1c">
+          <div style="width:110px; display:flex; align-items:center; gap:8px; font-size:13px; padding-top:8px"><span style="width:16px; height:16px; border-radius:3px; background:#00a0ff; display:inline-block"></span> Вт</div>
+          <div style="flex:1; min-width:220px; display:flex; flex-direction:column; gap:6px">
+            <div style="display:flex; align-items:center; gap:6px">
+              <div style="background:#1a1a1a; border:1px solid #2a2a2a; border-radius:8px; padding:6px 8px; font-size:12.5px; display:flex; gap:14px">10:00 <span style="color:#7a7a7a">▾</span></div>
+              <span style="font-size:12.5px; color:#ddd">—</span>
+              <div style="background:#1a1a1a; border:1px solid #2a2a2a; border-radius:8px; padding:6px 8px; font-size:12.5px; display:flex; gap:14px">13:00 <span style="color:#7a7a7a">▾</span></div>
+              <span style="color:#888; padding:0 4px; font-size:16px">×</span>
+            </div>
+            <div style="display:flex; align-items:center; gap:6px">
+              <div style="background:#1a1a1a; border:1px solid #2a2a2a; border-radius:8px; padding:6px 8px; font-size:12.5px; display:flex; gap:14px">15:00 <span style="color:#7a7a7a">▾</span></div>
+              <span style="font-size:12.5px; color:#ddd">—</span>
+              <div style="background:#1a1a1a; border:1px solid #2a2a2a; border-radius:8px; padding:6px 8px; font-size:12.5px; display:flex; gap:14px">19:00 <span style="color:#7a7a7a">▾</span></div>
+              <span style="color:#888; padding:0 4px; font-size:16px">×</span>
+            </div>
+          </div>
+          <div style="display:flex; gap:4px; padding-top:6px">
+            <span style="color:#888; font-size:14px; padding:2px 6px">＋</span>
+            <span style="color:#888; font-size:14px; padding:2px 6px">⧉</span>
+          </div>
+        </div>
+
+        <div style="display:flex; align-items:flex-start; gap:10px; padding:9px 0; border-bottom:1px solid #1c1c1c">
+          <div style="width:110px; display:flex; align-items:center; gap:8px; font-size:13px; padding-top:8px"><span style="width:16px; height:16px; border-radius:3px; border:1px solid #3a3a3a; background:#151515; display:inline-block"></span> Ср</div>
+          <div style="flex:1; min-width:220px; display:flex; flex-direction:column; gap:6px"></div>
+          <div style="display:flex; gap:4px; padding-top:6px">
+            <span style="color:#888; font-size:14px; padding:2px 6px">＋</span>
+            <span style="color:#888; font-size:14px; padding:2px 6px">⧉</span>
+          </div>
+        </div>
+
+        <div style="display:flex; align-items:flex-start; gap:10px; padding:9px 0; border-bottom:1px solid #1c1c1c">
+          <div style="width:110px; display:flex; align-items:center; gap:8px; font-size:13px; padding-top:8px"><span style="width:16px; height:16px; border-radius:3px; border:1px solid #3a3a3a; background:#151515; display:inline-block"></span> Чт</div>
+          <div style="flex:1; min-width:220px; display:flex; flex-direction:column; gap:6px"></div>
+          <div style="display:flex; gap:4px; padding-top:6px">
+            <span style="color:#888; font-size:14px; padding:2px 6px">＋</span>
+            <span style="color:#888; font-size:14px; padding:2px 6px">⧉</span>
+          </div>
+        </div>
+
+        <div style="font-size:11px; color:#8b8b8b; margin-top:8px">Часовой пояс из карточки выше. Дни без интервалов = выходной.</div>
+      </div>
+
+      <!-- КАРТОЧКА 3 -->
+      <div style="background:#141414; border:1px solid #232323; border-radius:12px; padding:20px; margin-bottom:16px">
+        <div style="font-size:14px; color:#ddd; margin-bottom:14px; font-weight:700">Отпуск / нерабочие даты</div>
+        <div style="display:flex; gap:10px; align-items:center; flex-wrap:wrap">
+          <div>
+            <div style="font-size:11px; color:#8b8b8b; margin-bottom:5px">С</div>
+            <div style="background:#1a1a1a; border:1px solid #333; border-radius:8px; padding:9px 11px; font-size:13px; display:flex; gap:22px; align-items:center">01.09.2026 <span style="color:#8a8a8a">▤</span></div>
+          </div>
+          <div>
+            <div style="font-size:11px; color:#8b8b8b; margin-bottom:5px">По</div>
+            <div style="background:#1a1a1a; border:1px solid #333; border-radius:8px; padding:9px 11px; font-size:13px; display:flex; gap:22px; align-items:center">10.09.2026 <span style="color:#8a8a8a">▤</span></div>
+          </div>
+          <div style="padding-top:18px">
+            <div style="display:inline-flex; background:transparent; color:#cccccc; border:1px solid #333333; border-radius:8px; padding:10px 18px; font-size:13px; font-weight:500">Добавить</div>
+          </div>
+        </div>
+        <div style="font-size:11px; color:#8b8b8b; margin-top:10px">
+          <div style="display:flex; justify-content:space-between; align-items:center; padding:6px 0; border-bottom:1px solid #1c1c1c"><span style="color:#ddd">03.01.2027 — 09.01.2027</span><span style="color:#ff7b7b; font-size:14px; padding:2px 6px">Удалить</span></div>
+        </div>
+      </div>
+
+      <div style="display:flex; gap:8px; align-items:center; margin-top:6px">
+        <!-- .btn: в разметке color:#04121e / padding 9px 16px — на экране всё из /set с !important -->
+        <div style="display:inline-flex; align-items:center; justify-content:center; background:#00a0ff; color:#ffffff; border:1px solid #00a0ff; border-radius:8px; padding:10px 18px; font-size:13px; font-weight:500">Сохранить</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- метка масштаба -->
+  <div style="position:absolute; left:246px; top:1044px; font-size:11px; color:#4a4a4a; letter-spacing:.04em">1440 × 1080 — как есть сегодня</div>
+</div>
+</x-dc>
+</body>
+</html>
