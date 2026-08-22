@@ -1,0 +1,177 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <style>
+    * { box-sizing:border-box; }
+    body { margin:0; font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+           background:#0b0d10; color:#e8eaed; -webkit-font-smoothing:antialiased; }
+    a { color:#00a0ff; text-decoration:none; } a:hover { color:#33b6ff; }
+    h1 { font-size:26px; margin:0; font-weight:700; color:#fff; letter-spacing:-.01em; }
+    h2 { font-size:11px; letter-spacing:.08em; text-transform:uppercase; color:#6a7078; margin:0; font-weight:600; }
+    .card { background:#15181c; border:1px solid #242830; border-radius:12px; padding:14px 15px;
+            display:flex; flex-direction:column; gap:7px; }
+    .card .n { font-size:14px; font-weight:600; color:#fff; line-height:1.35; }
+    .card .was, .card .now { font-size:12.5px; line-height:1.5; display:flex; gap:7px; }
+    .card .was { color:#8a909a; }
+    .card .now { color:#c9d0d8; }
+    .card .k { flex:0 0 42px; font-size:11px; letter-spacing:.04em; text-transform:uppercase; padding-top:2px; }
+    .card .was .k { color:#5d646d; }
+    .card .now .k { color:#4a90b8; }
+    .chip { display:inline-flex; align-items:center; gap:5px; padding:3px 8px; border-radius:999px;
+            font-size:11px; line-height:1.4; border:1px solid #242830; background:#101317; color:#8a909a; white-space:nowrap; }
+    .chip.ok { border-color:#1e5230; background:#0e2a19; color:#4ade80; }
+    .chip.warn { border-color:#5a4410; background:#231a06; color:#e0b84d; }
+    code { font-family:ui-monospace, SFMono-Regular, Menlo, monospace; font-size:12px; color:#9fb6c6; }
+    .wave { display:flex; gap:12px; align-items:flex-start; }
+    .wave .num { flex:0 0 26px; height:26px; border-radius:50%; background:#0b2233; border:1px solid #1d4a6b;
+                 color:#7ec6f5; font-size:12px; font-weight:700; display:flex; align-items:center; justify-content:center; }
+    .wave .txt { font-size:13px; line-height:1.55; color:#c9d0d8; }
+    .wave .txt b { color:#fff; font-weight:600; }
+  </style>
+</helmet>
+
+<div style="width:980px; height:1960px; background:#0b0d10; padding:30px 32px 36px">
+
+  <div style="display:flex; align-items:flex-end; gap:14px; flex-wrap:wrap">
+    <h1>Чаты · премиум-разбор</h1>
+    <span class="chip" style="margin-bottom:4px">/crm/chats · crm_chats.js · crm-chats.html</span>
+  </div>
+  <div style="font-size:13.5px; line-height:1.6; color:#8a909a; margin-top:10px; max-width:760px; text-wrap:pretty">
+    Раздел работает как MVP Telegram Business: приходят и уходят сообщения, остальное — на потом.
+    Половина премиума не требует новых данных: <code>crm_lead_id</code>, <code>match_status</code>,
+    <code>message_type</code>, <code>payload_json</code>, <code>deleted_at</code>, <code>conn_status</code>
+    уже пишутся в базу и просто не доезжают до экрана.
+  </div>
+
+  <h2 style="margin:26px 0 12px">Слой платформы</h2>
+  <div style="display:grid; grid-template-columns:repeat(2, minmax(0,1fr)); gap:12px">
+    <div class="card">
+      <div class="n">Страница живёт по правилам платформы</div>
+      <div class="was"><span class="k">Было</span><span>Своя палитра <code>#0f0f0f</code>, локальный <code>.btn</code>, ни <code>/ui.css</code>, ни <code>/theme.css</code> — ползунки <code>/set</code> сюда не доезжают.</span></div>
+      <div class="now"><span class="k">Стало</span><span>Оба файла подключены, кнопки — роли <code>.btn</code> / <code>.tbtn</code> / <code>.ibtn</code> (ADR-063, ADR-068/069).</span></div>
+      <div><span class="chip ok">без новых данных</span></div>
+    </div>
+    <div class="card">
+      <div class="n">Один вокабуляр чипов и уведомлений</div>
+      <div class="was"><span class="k">Было</span><span>Статусы — текстом в подзаголовке, ошибки отправки — <code>alert('Не отправилось')</code>.</span></div>
+      <div class="now"><span class="k">Стало</span><span>Чипы как в «Дневнике» (ADR-123) и тост платформы <code>pltToast()</code> с повтором отправки.</span></div>
+      <div><span class="chip ok">без новых данных</span></div>
+    </div>
+  </div>
+
+  <h2 style="margin:22px 0 12px">Инбокс</h2>
+  <div style="display:grid; grid-template-columns:repeat(2, minmax(0,1fr)); gap:12px">
+    <div class="card">
+      <div class="n">Поиск по диалогам</div>
+      <div class="was"><span class="k">Было</span><span>Поиска нет вовсе: 34 диалога листаются глазами.</span></div>
+      <div class="now"><span class="k">Стало</span><span>Имя, ник, телефон и текст сообщений — параметр <code>q</code> у <code>GET /api/business/chats</code>.</span></div>
+      <div><span class="chip warn">нужен параметр в API</span></div>
+    </div>
+    <div class="card">
+      <div class="n">Фильтры и группы вместо плоского списка</div>
+      <div class="was"><span class="k">Было</span><span>Один список, отсортированный по <code>last_message_at</code>.</span></div>
+      <div class="now"><span class="k">Стало</span><span>«Непрочитанные» и «Без лида» + группы «Сегодня / Ранее» — по <code>unread_count</code> и <code>crm_lead_id</code>.</span></div>
+      <div><span class="chip ok">без новых данных</span></div>
+    </div>
+    <div class="card">
+      <div class="n">Строка диалога рассказывает о клиенте</div>
+      <div class="was"><span class="k">Было</span><span>Имя, ник и время. У безымянных — <code>id583114927</code>.</span></div>
+      <div class="now"><span class="k">Стало</span><span>Аватар-инициалы, превью последней реплики с «Вы:», чип лида и стадии либо жёлтое «Не сопоставлен».</span></div>
+      <div><span class="chip warn">в список нужен текст последней реплики</span></div>
+    </div>
+    <div class="card">
+      <div class="n">Счётчик непрочитанных под контролем</div>
+      <div class="was"><span class="k">Было</span><span>Открыл диалог — <code>unread_count</code> обнулился навсегда, вернуться к «надо ответить» нечем.</span></div>
+      <div class="now"><span class="k">Стало</span><span>«Отметить непрочитанным» в меню строки; бейдж в сайдбаре живёт по <code>/api/business/unread-count</code>.</span></div>
+      <div><span class="chip warn">нужен PATCH на чат</span></div>
+    </div>
+  </div>
+
+  <h2 style="margin:22px 0 12px">Переписка</h2>
+  <div style="display:grid; grid-template-columns:repeat(2, minmax(0,1fr)); gap:12px">
+    <div class="card">
+      <div class="n">Дни, группы, доставка</div>
+      <div class="was"><span class="k">Было</span><span>У каждого пузыря своя дата <code>22.08, 14:03</code>, подряд идущие реплики не сгруппированы.</span></div>
+      <div class="now"><span class="k">Стало</span><span>Разделитель дня, одно время на группу, галочка доставки по <code>telegram_message_id</code>.</span></div>
+      <div><span class="chip ok">без новых данных</span></div>
+    </div>
+    <div class="card">
+      <div class="n">Фото, голосовые и цитаты — видны</div>
+      <div class="was"><span class="k">Было</span><span>Не текстовое сообщение приходит пустым пузырём: <code>payload_json</code> сохраняется, но не разбирается.</span></div>
+      <div class="now"><span class="k">Стало</span><span>Превью фото, голосовое с длительностью, документ и цитата ответа — по <code>message_type</code>.</span></div>
+      <div><span class="chip warn">нужен разбор payload и файлы</span></div>
+    </div>
+    <div class="card">
+      <div class="n">Удалённое сообщение не исчезает молча</div>
+      <div class="was"><span class="k">Было</span><span><code>deleted_at</code> проставляется, а сообщение просто пропадает из ленты — в переписке дыра.</span></div>
+      <div class="now"><span class="k">Стало</span><span>Плашка «Сообщение удалено клиентом · 14:01»: видно, что диалог менялся.</span></div>
+      <div><span class="chip ok">без новых данных</span></div>
+    </div>
+    <div class="card">
+      <div class="n">Ответ без переключения задач</div>
+      <div class="was"><span class="k">Было</span><span>Только текстовое поле и кнопка «Отправить».</span></div>
+      <div class="now"><span class="k">Стало</span><span>Быстрые ответы, вложение, счёт из <code>/crm/docs</code> (ADR-032/113), подпись про Enter.</span></div>
+      <div><span class="chip warn">шаблоны + отправка файлов</span></div>
+    </div>
+  </div>
+
+  <h2 style="margin:22px 0 12px">Связка с CRM</h2>
+  <div style="display:grid; grid-template-columns:repeat(2, minmax(0,1fr)); gap:12px">
+    <div class="card">
+      <div class="n">Правая панель: клиент, лид, задачи</div>
+      <div class="was"><span class="k">Было</span><span><code>crm_contact_id</code> и <code>crm_lead_id</code> есть в таблице, но на экране их нет — за лидом надо уходить в другой раздел.</span></div>
+      <div class="now"><span class="k">Стало</span><span>Карточка клиента, лид со стадией и суммой, открытые задачи и быстрые действия рядом с перепиской.</span></div>
+      <div><span class="chip warn">нужен GET карточки чата</span></div>
+    </div>
+    <div class="card">
+      <div class="n">«Не сопоставлен» — это задача, а не статус</div>
+      <div class="was"><span class="k">Было</span><span><code>match_status</code> по умолчанию <code>unmatched</code> и никем не разбирается.</span></div>
+      <div class="now"><span class="k">Стало</span><span>Жёлтый чип в списке и фильтр «Без лида»; в панели — «Привязать контакт» и «Создать лид» в один клик.</span></div>
+      <div><span class="chip warn">нужны действия привязки</span></div>
+    </div>
+    <div class="card">
+      <div class="n">SORIC видит переписку</div>
+      <div class="was"><span class="k">Было</span><span><code>business_events</code> пишется на каждое входящее — «подписывается позже», пока читать некому.</span></div>
+      <div class="now"><span class="k">Стало</span><span>Системная строка в ленте: смена стадии и сигнал скоринга прямо там, где он сработал (ADR-122).</span></div>
+      <div><span class="chip warn">подписка SORIC на события</span></div>
+    </div>
+    <div class="card">
+      <div class="n">Состояние канала на виду</div>
+      <div class="was"><span class="k">Было</span><span><code>conn_status</code> и <code>can_reply</code> приходят с каждым чатом, <code>#conn-status</code> в шапке пустой.</span></div>
+      <div class="now"><span class="k">Стало</span><span>Чип «на связи / отвечать нельзя / подключение отключено» и время последней синхронизации.</span></div>
+      <div><span class="chip ok">без новых данных</span></div>
+    </div>
+  </div>
+
+  <h2 style="margin:22px 0 12px">Мобильный и обновление ленты</h2>
+  <div style="display:grid; grid-template-columns:repeat(2, minmax(0,1fr)); gap:12px">
+    <div class="card">
+      <div class="n">Телефон: два экрана вместо двух колонок</div>
+      <div class="was"><span class="k">Было</span><span>Список фиксированной ширины 320px и переписка делят 390px экрана.</span></div>
+      <div class="now"><span class="k">Стало</span><span>Список → диалог с возвратом стрелкой, тач-таргеты 44px, поля 16px (ADR-074/110, ADR-081/082).</span></div>
+      <div><span class="chip ok">без новых данных</span></div>
+    </div>
+    <div class="card">
+      <div class="n">Лента не дёргается каждые 8 секунд</div>
+      <div class="was"><span class="k">Было</span><span>Два <code>setInterval(…, 8000)</code> перерисовывают список и всю переписку целиком: скачет прокрутка, слетает выделение.</span></div>
+      <div class="now"><span class="k">Стало</span><span>Догружаются только новые сообщения; пока курсор в поле ввода, перерисовки нет.</span></div>
+      <div><span class="chip warn">инкрементальная загрузка</span></div>
+    </div>
+  </div>
+
+  <h2 style="margin:24px 0 12px">Порядок работ</h2>
+  <div style="display:flex; flex-direction:column; gap:11px">
+    <div class="wave"><div class="num">1</div><div class="txt"><b>Ничего не меняя в базе:</b> подключить <code>/ui.css</code> и <code>/theme.css</code>, роли кнопок и тосты, дни и группировку в ленте, плашку удалённого сообщения, чип состояния канала, фильтры и группы в списке.</div></div>
+    <div class="wave"><div class="num">2</div><div class="txt"><b>Достать то, что уже пишется:</b> разбор <code>payload_json</code> (фото, голос, цитата), карточка чата с лидом и задачами, чипы лида и «Не сопоставлен», поиск с параметром <code>q</code>.</div></div>
+    <div class="wave"><div class="num">3</div><div class="txt"><b>Новое поведение:</b> привязка контакта и создание лида из чата, шаблоны ответов и счёт из чата, подписка SORIC на <code>business_events</code>, инкрементальное обновление ленты.</div></div>
+  </div>
+</div>
+</x-dc>
+</body>
+</html>

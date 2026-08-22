@@ -1,0 +1,144 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <style>
+    * { box-sizing:border-box; }
+    body { margin:0; font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+           background:#0b0d10; color:#fff; -webkit-font-smoothing:antialiased; }
+    a { color:#00a0ff; text-decoration:none; } a:hover { color:#33b6ff; }
+    .sb-link { display:flex; align-items:center; gap:11px; padding:9px 20px; color:#aaa;
+               font-size:14px; border-left:3px solid transparent; white-space:nowrap; }
+    .sb-link .ico { width:18px; height:18px; flex:0 0 auto; color:#8a8a8a; }
+    .sb-link.active { color:#00a0ff; border-left-color:#00a0ff; background:#00a0ff11; font-weight:600; }
+    .sb-link.active .ico { color:#00a0ff; }
+    .sb-group { padding:14px 20px 6px; font-size:10px; letter-spacing:.08em; color:#555; text-transform:uppercase; }
+    .chat-row { padding:12px 16px; border-bottom:1px solid #161616; display:flex; flex-direction:column; gap:3px; }
+    .chat-row.on { background:#00a0ff14; border-left:2px solid #00a0ff; }
+    .chat-name { font-size:13.5px; font-weight:600; display:flex; justify-content:space-between; gap:8px; }
+    .chat-sub { font-size:11.5px; color:#888; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+    .unread { background:#00a0ff; color:#04121e; font-size:10px; font-weight:700; border-radius:20px; padding:1px 7px; }
+    .msg { max-width:60%; padding:9px 13px; border-radius:12px; font-size:13.5px; line-height:1.4; }
+    .msg.in { align-self:flex-start; background:#1a1a1a; }
+    .msg.out { align-self:flex-end; background:#00a0ff22; border:1px solid #00a0ff44; }
+    .msg-time { font-size:10px; color:#666; margin-top:4px; }
+    .mk { position:absolute; width:22px; height:22px; border-radius:50%; background:#2a1010;
+          border:1px solid #7a2e2e; color:#f87171; font-size:11px; font-weight:700;
+          display:flex; align-items:center; justify-content:center; }
+    .lg { display:flex; gap:9px; font-size:12px; line-height:1.45; color:#9aa1ab; }
+    .lg b { flex:0 0 20px; height:20px; border-radius:50%; background:#2a1010; border:1px solid #7a2e2e;
+            color:#f87171; font-size:10.5px; font-weight:700; display:flex; align-items:center; justify-content:center; }
+  </style>
+</helmet>
+
+<div style="width:1440px; height:1046px; background:#0b0d10">
+
+<div style="position:relative; width:1440px; height:900px; overflow:hidden; background:#0f0f0f">
+
+  <!-- САЙДБАР ПЛАТФОРМЫ (sidebar.js) -->
+  <div style="position:absolute; left:0; top:0; width:230px; height:900px; background:#0a0a0a; border-right:1px solid #1a1a1a; padding:16px 0; display:flex; flex-direction:column">
+    <div style="padding:6px 20px 18px; font-size:15px; font-weight:700; color:#fff; display:flex; align-items:center; gap:8px; white-space:nowrap">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#00a0ff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:18px;height:18px;flex:0 0 auto"><path d="M12 2 3 7v10l9 5 9-5V7z"/><path d="m3 7 9 5 9-5"/><path d="M12 22V12"/></svg>
+      Digital CashFlow <span style="font-size:11px; color:#555; font-weight:400">1.92</span>
+      <span style="width:8px;height:8px;border-radius:50%;background:#2ecc71;flex:0 0 auto"></span>
+    </div>
+    <div class="sb-group">Работа</div>
+    <div class="sb-link"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/><path d="M18 8a6 6 0 1 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/></svg>Уведомления</div>
+    <div class="sb-link"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 5h4M3 12h4M3 19h4"/><path d="M11 5h10M11 12h10M11 19h10"/></svg>Неделя</div>
+    <div class="sb-link"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 7 2 2 4-4"/><path d="m3 17 2 2 4-4"/><path d="M13 6h8M13 12h8M13 18h8"/></svg>Бэклог</div>
+    <div class="sb-link"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 10h18"/></svg>Проекты</div>
+    <div class="sb-link"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3a15 15 0 0 1 0 18a15 15 0 0 1 0-18"/></svg>Сайты</div>
+    <div class="sb-group">AI-CRM</div>
+    <div class="sb-link"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/></svg>Люди</div>
+    <div class="sb-link"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M9 8h2M9 12h2M9 16h2M14 8h1M14 12h1M14 16h1"/></svg>Компании</div>
+    <div class="sb-link"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17v-4h4v4z"/><path d="M10 17V9h4v8z"/><path d="M17 17V5h4v12z"/><path d="M3 21h18"/></svg>Лиды</div>
+    <div class="sb-link"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 4 14h7l-1 8 9-12h-7z"/></svg>SORIC</div>
+    <div class="sb-link"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H8a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V6z"/><path d="M14 2v4h4"/></svg>Документы</div>
+    <div class="sb-link active"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>Чаты</div>
+    <div class="sb-link"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="8" r="5"/><circle cx="16" cy="16" r="5"/></svg>CRM клиентов</div>
+    <div class="sb-link"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M2 12h20"/><circle cx="12" cy="12" r="9"/></svg>Услуги</div>
+    <div class="sb-link"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5"/><path d="M12 7v5l3 2"/></svg>История правок</div>
+  </div>
+
+  <!-- ШАПКА СТРАНИЦЫ -->
+  <div style="position:absolute; left:230px; top:0; width:1210px; height:61px; border-bottom:1px solid #222; display:flex; align-items:center; justify-content:space-between; padding:16px 24px">
+    <div style="font-size:18px; font-weight:700">Чаты</div>
+    <div style="font-size:12px; color:#666"></div>
+  </div>
+
+  <!-- СПИСОК ДИАЛОГОВ -->
+  <div style="position:absolute; left:230px; top:61px; width:320px; height:839px; border-right:1px solid #1a1a1a; overflow:hidden">
+    <div class="chat-row on">
+      <div class="chat-name"><span>Артём Ковалёв</span><span class="unread">3</span></div>
+      <div class="chat-sub">@a_kovalev · 22.08, 14:03</div>
+    </div>
+    <div class="chat-row">
+      <div class="chat-name"><span>Марина</span></div>
+      <div class="chat-sub"> · 22.08, 11:41</div>
+    </div>
+    <div class="chat-row">
+      <div class="chat-name"><span>id 583114927</span><span class="unread">1</span></div>
+      <div class="chat-sub"> · 21.08, 19:58</div>
+    </div>
+    <div class="chat-row">
+      <div class="chat-name"><span>Сергей Данилов</span></div>
+      <div class="chat-sub">@sdanilov · 21.08, 10:12</div>
+    </div>
+    <div class="chat-row">
+      <div class="chat-name"><span>Ольга П.</span></div>
+      <div class="chat-sub">@olga_p · 20.08, 16:30</div>
+    </div>
+    <div class="chat-row">
+      <div class="chat-name"><span>id 419002877</span></div>
+      <div class="chat-sub"> · 19.08, 09:05</div>
+    </div>
+  </div>
+
+  <!-- ПЕРЕПИСКА -->
+  <div style="position:absolute; left:550px; top:61px; width:890px; height:766px; padding:18px; display:flex; flex-direction:column; gap:10px; overflow:hidden">
+    <div class="msg in">Здравствуйте! Подскажите, сколько стоит сопровождение сайта в месяц?<div class="msg-time">21.08, 19:58</div></div>
+    <div class="msg out">Добрый день! От 35 000 ₽ в месяц, зависит от объёма работ.<div class="msg-time">21.08, 20:14</div></div>
+    <div class="msg in">А сюда входит SEO?<div class="msg-time">22.08, 09:30</div></div>
+    <div class="msg out">Да, базовая оптимизация входит.<div class="msg-time">22.08, 09:41</div></div>
+    <div class="msg in"><div class="msg-time">22.08, 13:58</div></div>
+    <div class="msg in"><div class="msg-time">22.08, 14:00</div></div>
+    <div class="msg in">Отправил реквизиты, посмотрите пожалуйста<div class="msg-time">22.08, 14:03</div></div>
+  </div>
+
+  <!-- КОМПОЗЕР -->
+  <div style="position:absolute; left:550px; top:827px; width:890px; height:73px; border-top:1px solid #1a1a1a; padding:12px 16px; display:flex; gap:10px; align-items:flex-start">
+    <div style="flex:1; background:#1a1a1a; border:1px solid #2a2a2a; border-radius:10px; padding:10px 12px; color:#666; font-size:13.5px; min-height:44px">Сообщение…</div>
+    <div style="background:#00a0ff; color:#04121e; border-radius:10px; padding:0 20px; font-size:13px; font-weight:600; height:44px; display:flex; align-items:center">Отправить</div>
+  </div>
+
+  <!-- МАРКЕРЫ -->
+  <div class="mk" style="left:1394px; top:20px">1</div>
+  <div class="mk" style="left:500px; top:20px">2</div>
+  <div class="mk" style="left:508px; top:140px">3</div>
+  <div class="mk" style="left:1006px; top:210px">4</div>
+  <div class="mk" style="left:664px; top:352px">5</div>
+  <div class="mk" style="left:1394px; top:520px">6</div>
+  <div class="mk" style="left:1268px; top:806px">7</div>
+  <div class="mk" style="left:312px; top:20px">8</div>
+</div>
+
+<!-- ЛЕГЕНДА -->
+<div style="padding:18px 24px 0; display:grid; grid-template-columns:repeat(4, minmax(0,1fr)); gap:14px 24px">
+  <div class="lg"><b>1</b><span>Шапка пустая: <span style="color:#c9d0d8">conn_status</span> приходит из API, но подключение, право отвечать и обрывы не показаны.</span></div>
+  <div class="lg"><b>2</b><span>Нет ни поиска, ни фильтров, ни группировки — только один плоский список по дате.</span></div>
+  <div class="lg"><b>3</b><span>В строке нет аватара, телефона и лида: <span style="color:#c9d0d8">crm_lead_id</span> и <span style="color:#c9d0d8">match_status</span> в базе есть, на экране их нет.</span></div>
+  <div class="lg"><b>4</b><span>Дата стоит у каждого сообщения, разделителей дней и группировки подряд идущих реплик нет.</span></div>
+  <div class="lg"><b>5</b><span>Фото, голосовые и ответы-цитаты приходят пустыми пузырями: <span style="color:#c9d0d8">payload_json</span> не разбирается.</span></div>
+  <div class="lg"><b>6</b><span>Нет правой панели: чтобы увидеть лид, задачи или счёт, надо уйти со страницы.</span></div>
+  <div class="lg"><b>7</b><span>Композер только текстовый: ни вложений, ни шаблонов ответа, ни счёта из <span style="color:#c9d0d8">/crm/docs</span>.</span></div>
+  <div class="lg"><b>8</b><span>Страница не подключает <span style="color:#c9d0d8">/ui.css</span> и <span style="color:#c9d0d8">/theme.css</span> — своя палитра, свои кнопки, мимо ролей платформы.</span></div>
+</div>
+</div>
+</x-dc>
+</body>
+</html>

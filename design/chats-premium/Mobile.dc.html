@@ -1,0 +1,184 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <style>
+    * { box-sizing:border-box; }
+    body { margin:0; font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+           background:#0b0d10; color:#e8eaed; -webkit-font-smoothing:antialiased; }
+    a { color:#00a0ff; text-decoration:none; } a:hover { color:#33b6ff; }
+    .scr { width:390px; height:844px; background:#0e0e0e; border:1px solid #242830; border-radius:14px;
+           overflow:hidden; display:flex; flex-direction:column; }
+    .cap { font-size:11px; letter-spacing:.06em; text-transform:uppercase; color:#6a7078; margin-bottom:9px; }
+    .chip { display:inline-flex; align-items:center; gap:5px; padding:4px 9px; border-radius:999px;
+            font-size:12px; line-height:1.4; border:1px solid #242830; background:#101317; color:#8a909a; white-space:nowrap; }
+    .chip.brand { border-color:#1d4a6b; background:#0b2233; color:#7ec6f5; }
+    .chip.warn { border-color:#5a4410; background:#231a06; color:#e0b84d; }
+    .lbl { font-size:11px; letter-spacing:.06em; text-transform:uppercase; color:#6a7078; }
+    .row { display:flex; align-items:center; gap:10px; }
+    .av { border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:700;
+          color:#0b0d10; flex:0 0 auto; }
+    .item { display:flex; gap:12px; padding:12px 16px; border-bottom:1px solid #14171b; min-height:72px; }
+    .unread { background:#00a0ff; color:#04121e; font-size:11px; font-weight:700; border-radius:20px; padding:2px 8px; }
+    .bub { max-width:80%; padding:10px 13px; border-radius:14px; font-size:15px; line-height:1.45; }
+    .bub.in { align-self:flex-start; background:#191c21; border:1px solid #21252b; border-bottom-left-radius:5px; }
+    .bub.out { align-self:flex-end; background:#0d2b3f; border:1px solid #14496b; border-bottom-right-radius:5px; }
+    .bub .t { display:flex; align-items:center; gap:4px; justify-content:flex-end; font-size:11px;
+              color:#6a7078; margin-top:4px; font-variant-numeric:tabular-nums; }
+    .bub .t svg { width:14px; height:14px; color:#4ea8de; }
+    .sep { display:flex; justify-content:center; }
+    .sep span { font-size:12px; color:#8a909a; background:#101317; border:1px solid #242830;
+                border-radius:999px; padding:4px 12px; }
+    .tap { min-height:44px; display:flex; align-items:center; }
+    .note { display:flex; gap:9px; font-size:12.5px; line-height:1.5; color:#9aa1ab; }
+    .note b { flex:0 0 20px; height:20px; border-radius:50%; background:#0b2233; border:1px solid #1d4a6b;
+              color:#7ec6f5; font-size:10.5px; font-weight:700; display:flex; align-items:center; justify-content:center; }
+    .note i { font-style:normal; color:#c9d0d8; }
+  </style>
+</helmet>
+
+<div style="width:860px; height:1010px; background:#0b0d10; padding:22px 24px">
+  <div style="display:flex; gap:32px">
+
+    <!-- ЭКРАН 1: СПИСОК -->
+    <div>
+      <div class="cap">Список · 390×844</div>
+      <div class="scr">
+        <div class="row" style="padding:14px 16px 10px; gap:10px">
+          <div style="font-size:19px; font-weight:700; color:#fff">Чаты</div>
+          <span class="chip" style="font-size:11px; padding:3px 8px">4 новых</span>
+          <div style="margin-left:auto; width:40px; height:40px; border-radius:10px; border:1px solid #1e1e1e; background:#101010; display:flex; align-items:center; justify-content:center; color:#aaa">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:19px;height:19px"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+          </div>
+        </div>
+        <div style="padding:0 16px 10px">
+          <div class="row" style="background:#101317; border:1px solid #242830; border-radius:10px; padding:11px 12px; gap:9px">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#6a7078" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px;flex:0 0 auto"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+            <span style="font-size:16px; color:#6a7078">Поиск по чатам</span>
+          </div>
+        </div>
+        <div class="row" style="padding:0 16px 12px; gap:7px">
+          <span class="chip brand">Все 34</span><span class="chip">Непрочитанные 4</span><span class="chip">Без лида 2</span>
+        </div>
+
+        <div class="lbl" style="padding:6px 16px 8px">Непрочитанные</div>
+        <div class="item">
+          <div class="av" style="width:44px; height:44px; background:linear-gradient(140deg,#4ea8de,#2f6f9e); font-size:15px">АК</div>
+          <div style="flex:1; min-width:0; display:flex; flex-direction:column; gap:4px">
+            <div class="row" style="gap:8px"><span style="font-size:15px; font-weight:600">Артём Ковалёв</span><span style="margin-left:auto; font-size:12px; color:#6a7078">14:03</span></div>
+            <div style="font-size:13.5px; color:#8a909a; overflow:hidden; text-overflow:ellipsis; white-space:nowrap">Отправил реквизиты, посмотрите пожалуйста</div>
+            <div class="row" style="gap:6px"><span class="chip brand" style="font-size:11px; padding:3px 8px">Лид #1024 · Переговоры</span><span class="unread" style="margin-left:auto">3</span></div>
+          </div>
+        </div>
+        <div class="item">
+          <div class="av" style="width:44px; height:44px; background:linear-gradient(140deg,#8a6ad6,#5b46a0); font-size:15px">М</div>
+          <div style="flex:1; min-width:0; display:flex; flex-direction:column; gap:4px">
+            <div class="row" style="gap:8px"><span style="font-size:15px; font-weight:600">Марина</span><span style="margin-left:auto; font-size:12px; color:#6a7078">11:41</span></div>
+            <div style="font-size:13.5px; color:#8a909a">Голосовое сообщение · 0:41</div>
+            <div class="row" style="gap:6px"><span class="chip warn" style="font-size:11px; padding:3px 8px">Не сопоставлен</span><span class="unread" style="margin-left:auto">1</span></div>
+          </div>
+        </div>
+
+        <div class="lbl" style="padding:12px 16px 8px">Сегодня</div>
+        <div class="item">
+          <div class="av" style="width:44px; height:44px; background:linear-gradient(140deg,#4fb286,#2e7357); font-size:15px">СД</div>
+          <div style="flex:1; min-width:0; display:flex; flex-direction:column; gap:4px">
+            <div class="row" style="gap:8px"><span style="font-size:15px; font-weight:600">Сергей Данилов</span><span style="margin-left:auto; font-size:12px; color:#6a7078">10:12</span></div>
+            <div style="font-size:13.5px; color:#8a909a; overflow:hidden; text-overflow:ellipsis; white-space:nowrap">Вы: счёт отправлен, ждём оплату</div>
+            <div class="row" style="gap:6px"><span class="chip" style="font-size:11px; padding:3px 8px">Лид #1019 · Счёт</span></div>
+          </div>
+        </div>
+        <div class="item">
+          <div class="av" style="width:44px; height:44px; background:linear-gradient(140deg,#d68a4e,#9a5b28); font-size:15px">ОП</div>
+          <div style="flex:1; min-width:0; display:flex; flex-direction:column; gap:4px">
+            <div class="row" style="gap:8px"><span style="font-size:15px; font-weight:600">Ольга П.</span><span style="margin-left:auto; font-size:12px; color:#6a7078">09:24</span></div>
+            <div style="font-size:13.5px; color:#8a909a; overflow:hidden; text-overflow:ellipsis; white-space:nowrap">Вы: добрый день! Готовим смету к четвергу</div>
+            <div class="row" style="gap:6px"><span class="chip" style="font-size:11px; padding:3px 8px">Лид #1011 · Сопровождение</span></div>
+          </div>
+        </div>
+        <div class="item" style="border-bottom:none">
+          <div class="av" style="width:44px; height:44px; background:linear-gradient(140deg,#5d6570,#3a4048); font-size:15px">ИБ</div>
+          <div style="flex:1; min-width:0; display:flex; flex-direction:column; gap:4px">
+            <div class="row" style="gap:8px"><span style="font-size:15px; font-weight:600">Игорь Б.</span><span style="margin-left:auto; font-size:12px; color:#6a7078">20 авг</span></div>
+            <div style="font-size:13.5px; color:#8a909a; overflow:hidden; text-overflow:ellipsis; white-space:nowrap">Спасибо, свяжемся после отпуска</div>
+            <div class="row" style="gap:6px"><span class="chip warn" style="font-size:11px; padding:3px 8px">Не сопоставлен</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ЭКРАН 2: ДИАЛОГ -->
+    <div>
+      <div class="cap">Диалог · 390×844</div>
+      <div class="scr">
+        <div class="row" style="padding:12px 14px; gap:10px; border-bottom:1px solid #1a1a1a">
+          <div class="tap" style="width:36px; color:#aaa">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:21px;height:21px"><path d="m15 18-6-6 6-6"/></svg>
+          </div>
+          <div class="av" style="width:36px; height:36px; background:linear-gradient(140deg,#4ea8de,#2f6f9e); font-size:13px">АК</div>
+          <div style="min-width:0">
+            <div style="font-size:15px; font-weight:600; color:#fff">Артём Ковалёв</div>
+            <div style="font-size:12px; color:#8a909a">@a_kovalev</div>
+          </div>
+          <div class="tap" style="margin-left:auto; width:40px; justify-content:center; color:#8a8a8a">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:18px;height:18px"><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/></svg>
+          </div>
+        </div>
+
+        <div class="row" style="padding:10px 14px; gap:7px; border-bottom:1px solid #14171b; background:#0c0e11">
+          <span class="chip brand" style="font-size:11.5px">Лид #1024 · Переговоры</span>
+          <span class="chip" style="font-size:11.5px">420 000 ₽</span>
+          <span class="chip" style="font-size:11.5px; margin-left:auto">Задачи 2</span>
+        </div>
+
+        <div style="flex:1; padding:14px; display:flex; flex-direction:column; justify-content:flex-end; gap:10px; overflow:hidden">
+          <div class="sep"><span>Сегодня</span></div>
+          <div style="display:flex; flex-direction:column; gap:3px">
+            <div class="bub out">Добрый день! От 35 000 ₽ в месяц — зависит от объёма работ.</div>
+            <div class="bub out">Могу прислать смету по вашему сайту.<div class="t">20:14 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m2 12 5 5L17 7"/><path d="m12 17 5-5"/></svg></div></div>
+          </div>
+          <div class="bub in">Да, пришлите. И SEO входит?<div class="t">09:30</div></div>
+          <div class="bub in" style="padding:6px">
+            <div style="width:190px; height:116px; border-radius:9px; background:linear-gradient(150deg,#232830,#171a1f); border:1px solid #262b33; display:flex; align-items:center; justify-content:center; color:#4d5661">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" style="width:28px;height:28px"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-5-5L5 21"/></svg>
+            </div>
+            <div style="font-size:13px; color:#c2c8d0; padding:6px 6px 0">Фото · реквизиты компании</div>
+            <div class="t" style="padding-right:6px">13:58</div>
+          </div>
+          <div style="align-self:flex-start; font-size:12.5px; color:#6a7078; border:1px dashed #2c313a; border-radius:11px; padding:7px 11px">Сообщение удалено клиентом · 14:01</div>
+          <div class="bub in">Отправил реквизиты, посмотрите пожалуйста<div class="t">14:03</div></div>
+        </div>
+
+        <div style="border-top:1px solid #1a1a1a; padding:10px 14px 14px; display:flex; flex-direction:column; gap:9px">
+          <div class="row" style="gap:7px">
+            <span class="chip">Уточню и вернусь</span><span class="chip">Отправить счёт</span><span class="chip">Созвон</span>
+          </div>
+          <div class="row" style="gap:9px; align-items:flex-end">
+            <div class="tap" style="width:40px; justify-content:center; color:#8a8a8a; flex:0 0 auto">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:19px;height:19px"><path d="M21.4 11.1 12.3 20a5.5 5.5 0 0 1-7.8-7.8l9.2-9.2a3.7 3.7 0 0 1 5.2 5.2l-9.2 9.2a1.8 1.8 0 0 1-2.6-2.6l8.5-8.5"/></svg>
+            </div>
+            <div style="flex:1; background:#15181c; border:1px solid #242830; border-radius:14px; padding:12px 14px; font-size:16px; color:#6a7078; min-height:48px">Сообщение…</div>
+            <div style="width:48px; height:48px; border-radius:14px; background:#00a0ff; color:#fff; display:flex; align-items:center; justify-content:center; flex:0 0 auto">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:20px;height:20px"><path d="m22 2-7 20-4-9-9-4z"/></svg>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px 32px; margin-top:20px">
+    <div class="note"><b>9</b><span>Вместо двух колонок на 390px — два экрана: список и диалог, возврат стрелкой. Приём тот же, что в <i>ADR-074</i> и <i>ADR-110</i>.</span></div>
+    <div class="note"><b>10</b><span>Тач-таргеты 44px и поля 16px: <i>ui.css</i> уже поднимает кегль полей на мобиле, чтобы iOS не зумил (<i>ADR-081/082</i>).</span></div>
+    <div class="note"><b>11</b><span>Полоска лида под шапкой диалога заменяет правую панель: стадия, сумма, задачи — одним касанием.</span></div>
+    <div class="note"><b>12</b><span>Быстрые ответы над полем — главный сценарий с телефона: ответить за два касания, не набирая текст.</span></div>
+  </div>
+</div>
+</x-dc>
+</body>
+</html>
