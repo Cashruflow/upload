@@ -1,0 +1,474 @@
+<!DOCTYPE html><html lang="ru"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Слоты — расписание — Digital CashFlow</title>
+<meta name="theme-color" content="#0a0a0a">
+<link rel="icon" type="image/svg+xml" href="/assets/logo.svg">
+<style>
+/* Кнопки (.btn, .tbtn, .ibtn) и поля (input/select) локально НЕ описываем — вид приезжает
+   из /theme.css: btnCss() объявляет его через !important (ui_btn_force=1), inpCss() —
+   через :where(), поэтому любое правило страницы вида `.top-row input{}` его перебивало
+   и /slots была единственной страницей, которая не слушала /set → «Поля». Всё, что ниже,
+   опирается на переменные темы и отвечает только за раскладку. */
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,sans-serif;background:var(--ui-page-bg,#0e0e0e);color:#fff;min-height:100vh;
+     padding-top:env(safe-area-inset-top);font-variant-numeric:tabular-nums}
+
+/* Шапка — блочная (flow-root), а не флекс: распорку под кнопку ☰ /burger-space.js кладёт
+   обтеканием первым ребёнком родителя H1, и во флекс-контейнере float не работает —
+   часы уезжали под кнопку меню. */
+header{display:flow-root;padding:14px var(--ui-page-pad,44px);border-bottom:1px solid #1f1f1f}
+h1{font-size:18px;font-weight:600}
+h1 .kick{font-size:13px;font-weight:400;color:var(--ui-muted,#6a6a6a);margin-left:10px}
+.hmeta{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-top:7px}
+.chip{display:inline-flex;align-items:center;gap:7px;background:var(--ui-surface-2,#191919);
+      border:1px solid var(--ui-card-border,#262626);border-radius:var(--ui-chip-radius,16px);
+      padding:5px 12px;font-size:12px;color:#8b8b8b}
+.chip .ico{width:13px;height:13px;flex-shrink:0}
+.saved{color:#4caf7d;font-size:12px;opacity:0;transition:opacity .3s}
+.saved.on{opacity:1}
+@media (min-width:769px){ .hmeta{float:right;margin-top:0} }
+
+.container{padding:26px var(--ui-page-pad,44px) 60px;max-width:1180px;margin:0 auto}
+@media (max-width:768px){ .container{padding:14px var(--ui-page-pad-m,14px) calc(var(--ui-actions-h,96px) + env(safe-area-inset-bottom))} }
+
+/* Две колонки на ПК, одна на телефоне. .col{display:contents} на узком экране делает
+   карточки прямыми детьми .layout, чтобы порядок задавался order и не зависел от колонок. */
+.layout{display:flex;flex-direction:column;gap:var(--ui-gap,22px)}
+.col{display:contents}
+#c-set{order:1}#c-hours{order:2}#c-params{order:3}#c-vac{order:4}#c-pages{order:5}#c-save{order:6}
+@media (min-width:1100px){
+  .layout{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:var(--ui-gap,22px);align-items:start}
+  .col{display:flex;flex-direction:column;gap:var(--ui-gap,22px);min-width:0}
+  .rail{position:sticky;top:16px}
+}
+
+/* .card оставлен пустым хуком: по нему wcollapse.js находит сворачиваемые карточки
+   (селектор '.card.wcol-target'), а весь вид даёт .ui-card из /ui.css. */
+.card{min-width:0}
+.card h2{font-size:14px;font-weight:600;color:#ddd;margin-bottom:12px}
+.card h2 .note{font-weight:400;font-size:12px;color:var(--ui-muted,#6a6a6a);margin-left:10px}
+.sub{font-size:12px;color:var(--ui-muted,#6a6a6a);margin:-6px 0 14px;line-height:1.45}
+.hint{font-size:12px;color:var(--ui-muted,#6a6a6a);line-height:1.45}
+label.f{display:block;font-size:var(--ui-inp-lbl-fs,13px);color:var(--ui-inp-lbl,#8a8a8a);margin-bottom:6px}
+.frow{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px 14px}
+.frow.two{grid-template-columns:repeat(auto-fit,minmax(150px,1fr))}
+.frow input,.frow select{width:100%}
+.sect{margin-top:18px;padding-top:18px;border-top:1px solid #1f1f1f}
+.lnk{color:#6ab0f5;cursor:pointer;font-size:12px;display:inline-flex;align-items:center;min-height:var(--ui-tap-sm,30px)}
+.lnk:hover{color:#8cc4ff}
+.rowend{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
+
+/* ICS-ссылки: строка на всю ширину вместо чипа-обрезка — на телефоне чип не помещался. */
+.ics{display:flex;flex-direction:column;gap:6px;margin-top:8px}
+.ics-row{display:flex;align-items:center;gap:6px;background:var(--ui-surface-2,#191919);
+         border:1px solid var(--ui-card-border,#262626);border-radius:var(--ui-radius,8px);
+         padding:4px 4px 4px 12px;min-height:44px}
+.ics-row .u{flex:1;min-width:0;font-size:12px;color:#e8e8e8;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.ics-add{display:flex;gap:8px;align-items:center;margin-top:8px}
+.ics-add input{flex:1;min-width:0}
+@media (max-width:768px){ .ics-add{flex-wrap:wrap} .ics-add input{flex:1 0 100%} .ics-add .btn,.ics-add .tbtn{flex:1} }
+.ok{color:#4caf7d}.bad{color:var(--ui-danger,#f87171)}
+
+/* Дни недели. На ПК — сетка «имя / интервалы / действия», на телефоне блок: строка дня,
+   под ней интервалы во всю ширину. Значки и строки-действия — не меньше --ui-tap. */
+.day{padding:8px 0;border-bottom:1px solid #1f1f1f}
+.day:last-child{border-bottom:none}
+.day-head{display:flex;align-items:center;gap:10px;min-height:44px}
+.day-name{display:flex;align-items:center;gap:9px;font-size:13.5px;cursor:pointer;flex:1;min-width:0}
+.day-name input{flex-shrink:0}
+.day.off .day-name{color:#8a8a8a}
+.day-sum{font-size:12px;color:#5a5a5a;white-space:nowrap}
+.day-off{font-size:12.5px;color:#4a4a4a;white-space:nowrap}
+.day-acts{display:flex;gap:2px;flex-shrink:0}
+.intervals{display:flex;flex-direction:column;gap:6px}
+.iv{display:flex;align-items:center;gap:8px}
+.iv select{width:104px}
+.iv .d{color:#5a5a5a;font-size:13px}
+.iv .len{font-size:12px;color:#5a5a5a;white-space:nowrap}
+.iv .ibtn{margin-left:auto}
+@media (min-width:769px){
+  .day{display:grid;grid-template-columns:190px minmax(0,1fr) auto;gap:12px;align-items:start}
+  .day-head{grid-column:1;display:flex}
+  .day-head .day-acts{display:none}
+  /* суммарные часы дня на ПК не дублируем — длительность подписана у каждого интервала */
+  .day-head .day-sum{display:none}
+  .day .intervals{grid-column:2;padding-top:6px}
+  .day .day-acts.wide{grid-column:3;display:flex;padding-top:12px}
+}
+@media (max-width:768px){
+  .day-acts.wide{display:none}
+  .iv select{width:auto;flex:1;min-width:0}
+  .day-acts .ibtn,.iv .ibtn{min-width:var(--ui-tap,44px);min-height:var(--ui-tap,44px)}
+  .lnk{min-height:var(--ui-tap,44px)}
+}
+
+/* Длительность встречи: на телефоне — ряд кнопок вместо списка на пять пунктов.
+   Значение в обоих случаях живёт в одном <select id="s-dur">, его и читает сохранение. */
+.seg{display:none;gap:6px}
+.seg-b{flex:1;min-height:var(--ui-tap,44px);border-radius:var(--ui-radius,8px);
+       border:1px solid var(--ui-inp-border,#333);background:var(--ui-inp-bg,#1a1a1a);
+       color:#8a8a8a;font-size:14px;font-family:inherit;cursor:pointer}
+.seg-b.on{border-color:var(--ui-brand,#00a0ff);background:color-mix(in srgb,var(--ui-brand,#00a0ff) 12%,transparent);color:#fff;font-weight:600}
+.seg-u{display:flex;align-items:center;color:var(--ui-muted,#6a6a6a);font-size:12px}
+@media (max-width:768px){ .seg{display:flex} .dur-sel{display:none} }
+
+.vac-row{display:flex;justify-content:space-between;align-items:center;gap:10px;
+         padding:4px 0;border-top:1px solid #1f1f1f;min-height:44px;font-size:13px}
+.vac-row:first-child{border-top:none}
+.pg{display:flex;align-items:center;gap:9px;font-size:13px;color:#ddd;min-height:32px}
+.pg svg{width:15px;height:15px;color:var(--ui-muted,#6a6a6a);flex-shrink:0}
+
+/* Сохранение всегда под рукой: на ПК — закреплённая правая колонка, на телефоне —
+   полоса внизу экрана с отступом под safe-area (раньше кнопка лежала в самом низу страницы). */
+.foot{background:var(--ui-card-bg,#141414);border:1px solid var(--ui-card-border,#262626);
+      border-radius:var(--ui-card-radius,12px);padding:14px 16px;display:flex;flex-direction:column;gap:10px}
+.foot .btn{width:100%}
+@media (max-width:768px){
+  .foot{position:fixed;left:0;right:0;bottom:0;z-index:100;border:0;border-top:1px solid var(--ui-card-border,#262626);
+        border-radius:0;background:rgba(14,14,14,.94);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);
+        flex-direction:row-reverse;align-items:center;
+        padding:10px var(--ui-page-pad-m,14px) calc(10px + env(safe-area-inset-bottom))}
+  .foot .btn{width:auto;min-height:var(--ui-tap,44px)}
+  .foot .saved{flex:1}
+}
+</style>
+<link rel="stylesheet" href="/ui.css">
+<link rel="stylesheet" href="/theme.css">
+</head><body>
+
+<header>
+  <h1>Слоты — расписание <span class="kick">когда вас можно записать</span></h1>
+  <div class="hmeta">
+    <span class="chip"><svg class="ico"><use href="/assets/icons.svg#i-clock"></use></svg><span id="clock"></span></span>
+  </div>
+</header>
+
+<div class="container" id="slotsapp">
+<div class="layout">
+
+  <div class="col main">
+
+    <div class="ui-card card wcol-target" id="c-set">
+      <h2>Набор доступности</h2>
+      <div class="frow">
+        <div><label class="f" for="s-name">Название</label><input id="s-name"></div>
+        <div><label class="f" for="s-tz">Часовой пояс</label>
+          <select id="s-tz">
+            <option value="Europe/Samara">Europe/Samara (МСК+1)</option>
+            <option value="Europe/Moscow">Europe/Moscow (МСК)</option>
+            <option value="Asia/Bangkok">Asia/Bangkok (UTC+7)</option>
+            <option value="Asia/Ho_Chi_Minh">Asia/Ho_Chi_Minh (UTC+7)</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="sect">
+        <div class="rowend">
+          <label class="f" style="margin:0">ICS-ссылки на Google Календарь</label>
+          <span class="lnk" onclick="toggleIcsHelp()">Где взять ссылку</span>
+        </div>
+        <div class="hint" style="margin-top:6px">Занятые часы из этих календарей вычитаются из свободных слотов.</div>
+        <div class="hint" id="ics-help" hidden style="margin-top:8px">
+          Настройки календаря → «Интеграция» → «Секретный адрес в формате iCal», ссылка заканчивается на <b>.ics</b>.
+          Публичная ссылка на страницу записи (calendar.google.com/…/appointments/… или calendar.app.google/…) сюда
+          <b>не подходит</b> — это другая ссылка.
+        </div>
+        <div class="ics" id="ics-chips"></div>
+        <div class="ics-add">
+          <input id="ics-add" placeholder="https://calendar.google.com/calendar/ical/.../basic.ics" onkeydown="if(event.key==='Enter'){event.preventDefault();addIcs();}">
+          <button class="tbtn" onclick="addIcs()"><svg><use href="/assets/icons.svg#i-plus"></use></svg>Добавить</button>
+          <button class="tbtn" onclick="checkIcs()">Проверить</button>
+        </div>
+        <div id="ics-check-result" class="hint" style="margin-top:8px"></div>
+      </div>
+    </div>
+
+    <div class="ui-card card" id="c-hours">
+      <h2>Часы приёма <span class="note" id="hours-note"></span></h2>
+      <div class="sub">Дни без интервалов клиент видит как выходные. Часовой пояс — из карточки выше.</div>
+      <div id="days"></div>
+    </div>
+
+  </div>
+
+  <div class="col rail">
+
+    <div class="ui-card card" id="c-params">
+      <h2>Параметры встречи</h2>
+      <div class="sub">Клиенты этих настроек не видят.</div>
+
+      <label class="f" for="s-dur">Длительность встречи</label>
+      <div class="seg" id="dur-seg">
+        <button type="button" class="seg-b" data-v="15" onclick="setDur(15)">15</button>
+        <button type="button" class="seg-b" data-v="30" onclick="setDur(30)">30</button>
+        <button type="button" class="seg-b" data-v="45" onclick="setDur(45)">45</button>
+        <button type="button" class="seg-b" data-v="60" onclick="setDur(60)">60</button>
+        <button type="button" class="seg-b" data-v="90" onclick="setDur(90)">90</button>
+        <span class="seg-u">мин</span>
+      </div>
+      <select id="s-dur" class="dur-sel" onchange="renderDur()" style="width:100%">
+        <option value="15">15 мин</option><option value="30">30 мин</option><option value="45">45 мин</option>
+        <option value="60">60 мин</option><option value="90">90 мин</option>
+      </select>
+
+      <div class="frow two" style="margin-top:14px">
+        <div><label class="f" for="s-bb">Буфер до, мин</label><input id="s-bb" type="number" step="5"></div>
+        <div><label class="f" for="s-ba">Буфер после, мин</label><input id="s-ba" type="number" step="5"></div>
+      </div>
+      <div class="hint" style="margin-top:6px">Меньше 30 минут сервер поднимет сам при сохранении.</div>
+
+      <div class="frow two" style="margin-top:12px">
+        <div><label class="f" for="s-notice">Не раньше чем за, ч</label><input id="s-notice" type="number" step="1"></div>
+        <div><label class="f" for="s-adv">Горизонт, дней</label><input id="s-adv" type="number" step="1"></div>
+      </div>
+
+      <div style="margin-top:12px">
+        <label class="f" for="s-maxday">Встреч в день</label>
+        <select id="s-maxday" style="width:100%">
+          <option value="">Без ограничения</option>
+          <option value="1">1</option><option value="2">2</option><option value="3">3</option>
+          <option value="4">4</option><option value="5">5</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="ui-card card wcol-target" id="c-vac">
+      <h2>Отпуск и нерабочие даты</h2>
+      <div class="frow two">
+        <div><label class="f" for="v-from">С</label><input id="v-from" type="date"></div>
+        <div><label class="f" for="v-to">По</label><input id="v-to" type="date"></div>
+      </div>
+      <button class="tbtn" style="width:100%;margin-top:10px" onclick="addVacation()">
+        <svg><use href="/assets/icons.svg#i-plus"></use></svg>Добавить период
+      </button>
+      <div id="vac-list" style="margin-top:10px"></div>
+    </div>
+
+    <div class="ui-card card" id="c-pages">
+      <h2>Где применяется</h2>
+      <div id="pages-info"></div>
+    </div>
+
+    <div class="foot" id="c-save">
+      <button class="btn" onclick="saveAll()">Сохранить</button>
+      <span class="saved" id="saved">Сохранено</span>
+    </div>
+
+  </div>
+</div>
+</div>
+
+<script src="/wcollapse.js"></script>
+<script>
+function tick(){
+  const el = document.getElementById('clock');
+  const tz = document.getElementById('s-tz') ? document.getElementById('s-tz').value : 'Europe/Samara';
+  el.textContent = new Date().toLocaleString('ru-RU', { timeZone: tz, dateStyle: 'medium', timeStyle: 'short' }) + ' · ' + tz;
+}
+setInterval(tick, 1000);
+</script>
+<script>
+const WD = [[1,'Пн','Понедельник'],[2,'Вт','Вторник'],[3,'Ср','Среда'],[4,'Чт','Четверг'],
+            [5,'Пт','Пятница'],[6,'Сб','Суббота'],[7,'Вс','Воскресенье']];
+let RULES = {}; // weekday -> [[start,end],...]
+let ICS_LIST = [];
+
+function esc(s){ return String(s == null ? '' : s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+function ico(name){ return '<svg><use href="/assets/icons.svg#' + name + '"></use></svg>'; }
+
+function toggleIcsHelp(){ const el = document.getElementById('ics-help'); el.hidden = !el.hidden; }
+
+function renderIcs(){
+  const box = document.getElementById('ics-chips');
+  if (!ICS_LIST.length) { box.innerHTML = '<div class="hint">Ссылок не добавлено.</div>'; return; }
+  box.innerHTML = ICS_LIST.map((u,i) =>
+    '<div class="ics-row"><span class="u" title="' + esc(u) + '">' + esc(u) + '</span>'
+    + '<button class="ibtn" title="Удалить ссылку" onclick="delIcs(' + i + ')">' + ico('i-x') + '</button></div>'
+  ).join('');
+}
+function addIcs(){
+  const el = document.getElementById('ics-add');
+  const v = el.value.trim();
+  if (!v) return;
+  if (!/^https?:\/\//.test(v)) { el.style.borderColor = 'var(--ui-danger,#f87171)'; setTimeout(()=>el.style.borderColor='', 900); return; }
+  if (!ICS_LIST.includes(v)) ICS_LIST.push(v);
+  el.value = '';
+  renderIcs();
+}
+function delIcs(i){ ICS_LIST.splice(i,1); renderIcs(); }
+async function checkIcs(){
+  const box = document.getElementById('ics-check-result');
+  box.textContent = 'Проверяю...';
+  const d = await (await fetch('/api/avail/ics-check', {credentials:'same-origin'})).json();
+  if (!d.ok) { box.textContent = 'Ошибка проверки'; return; }
+  if (!d.results.length) { box.textContent = 'Ссылок не сохранено — сначала «Сохранить».'; return; }
+  box.innerHTML = d.results.map(r => {
+    const short = r.url.length > 50 ? r.url.slice(0,47)+'…' : r.url;
+    return r.status === 'ok'
+      ? '<div class="ok">✓ ' + esc(short) + ' — календарь читается, событий: ' + (r.events|0) + '</div>'
+      : '<div class="bad">✕ ' + esc(short) + ' — ' + esc(r.detail || 'ошибка') + '</div>';
+  }).join('');
+}
+
+/* Длительность: значение хранит <select id="s-dur">, ряд кнопок на телефоне — второй вид
+   того же значения. Сохранение по-прежнему читает только select. */
+function renderDur(){
+  const v = String(document.getElementById('s-dur').value || '');
+  document.querySelectorAll('#dur-seg .seg-b').forEach(b => b.classList.toggle('on', b.dataset.v === v));
+}
+function setDur(v){ document.getElementById('s-dur').value = String(v); renderDur(); }
+
+function hm(m){ return String(Math.floor(m/60)).padStart(2,'0') + ':' + String(m%60).padStart(2,'0'); }
+function timeOpts(sel){
+  let o = '';
+  for (let m=0; m<1440; m+=15) o += '<option value="' + m + '"' + (m === +sel ? ' selected' : '') + '>' + hm(m) + '</option>';
+  return o;
+}
+function lenTxt(min){
+  if (!(min > 0)) return '';
+  const h = min/60;
+  return (Number.isInteger(h) ? h : h.toFixed(1).replace('.', ',')) + ' ч';
+}
+function dayTotal(ivs){ return (ivs||[]).reduce((s,[a,b]) => s + Math.max(0, b-a), 0); }
+function plural(n, one, few, many){
+  const n10 = n % 10, n100 = n % 100;
+  if (n10 === 1 && n100 !== 11) return one;
+  if (n10 >= 2 && n10 <= 4 && (n100 < 12 || n100 > 14)) return few;
+  return many;
+}
+
+function renderDays(){
+  const box = document.getElementById('days');
+  box.innerHTML = WD.map(([wd,short,full]) => {
+    const ivs = RULES[wd] || [];
+    const on = ivs.length > 0;
+    const acts = '<button class="ibtn" title="Добавить интервал" onclick="addInterval(' + wd + ')">' + ico('i-plus') + '</button>'
+      + '<button class="ibtn" title="Скопировать на остальные будни" onclick="copyToWeekdays(' + wd + ')">' + ico('i-copy') + '</button>';
+    return '<div class="day' + (on ? '' : ' off') + '" data-wd="' + wd + '">'
+      + '<div class="day-head">'
+        + '<label class="day-name"><input type="checkbox" ' + (on ? 'checked' : '') + ' onchange="toggleDay(' + wd + ',this.checked)"><span>' + full + '</span></label>'
+        + (on ? '<span class="day-sum" id="sum-' + wd + '">' + lenTxt(dayTotal(ivs)) + '</span>' : '<span class="day-off">Выходной</span>')
+        + '<span class="day-acts">' + acts + '</span>'
+      + '</div>'
+      + '<div class="intervals" id="ivs-' + wd + '">'
+        + (on ? ivs.map((iv,i) => ivRow(wd,i,iv)).join('')
+              : '<span class="lnk" onclick="toggleDay(' + wd + ',true)">добавить часы</span>')
+      + '</div>'
+      + '<span class="day-acts wide">' + acts + '</span>'
+    + '</div>';
+  }).join('');
+  const work = WD.filter(([wd]) => (RULES[wd] || []).length).length;
+  const tz = document.getElementById('s-tz').value;
+  document.getElementById('hours-note').textContent = tz + ' · ' + work + ' ' + plural(work, 'рабочий день', 'рабочих дня', 'рабочих дней');
+}
+function ivRow(wd,i,iv){
+  const [s,e] = iv;
+  return '<div class="iv" data-i="' + i + '">'
+    + '<select onchange="setIv(' + wd + ',' + i + ',0,this.value)">' + timeOpts(s) + '</select>'
+    + '<span class="d">—</span>'
+    + '<select onchange="setIv(' + wd + ',' + i + ',1,this.value)">' + timeOpts(e) + '</select>'
+    + '<span class="len" id="len-' + wd + '-' + i + '">' + lenTxt(e-s) + '</span>'
+    + '<button class="ibtn" title="Удалить интервал" onclick="delInterval(' + wd + ',' + i + ')">' + ico('i-x') + '</button>'
+  + '</div>';
+}
+function toggleDay(wd,on){
+  if (on && !(RULES[wd]||[]).length) RULES[wd] = [[600,1140]]; // 10:00-19:00 по умолчанию при включении
+  if (!on) RULES[wd] = [];
+  renderDays();
+}
+function addInterval(wd){ (RULES[wd]=RULES[wd]||[]).push([600,1140]); renderDays(); }
+function delInterval(wd,i){ RULES[wd].splice(i,1); renderDays(); }
+/* Подписи длительности обновляем точечно, а не перерисовкой дня: перерисовка пересоздаёт
+   <select> и на десктопе сбивает фокус прямо во время выбора. */
+function setIv(wd,i,pos,val){
+  RULES[wd][i][pos] = +val;
+  const iv = RULES[wd][i];
+  const len = document.getElementById('len-' + wd + '-' + i);
+  if (len) len.textContent = lenTxt(iv[1] - iv[0]);
+  const sum = document.getElementById('sum-' + wd);
+  if (sum) sum.textContent = lenTxt(dayTotal(RULES[wd]));
+}
+function copyToWeekdays(wd){
+  const src = RULES[wd] || [];
+  [1,2,3,4,5].forEach(d => { if (d !== wd) RULES[d] = src.map(iv => iv.slice()); });
+  renderDays();
+}
+
+async function load(){
+  const d = await (await fetch('/api/avail/schedule', {credentials:'same-origin'})).json();
+  if (!d.ok) { document.body.innerHTML = '<div style="padding:40px;text-align:center;color:#888">Нет доступа</div>'; return; }
+  document.getElementById('s-name').value = d.schedule.name || '';
+  document.getElementById('s-tz').value = d.schedule.tz || 'Europe/Samara';
+  ICS_LIST = String(d.schedule.ics_url || '').split(',').map(s=>s.trim()).filter(Boolean);
+  renderIcs();
+  document.getElementById('s-dur').value = d.schedule.duration_min || 30;
+  renderDur();
+  document.getElementById('s-bb').value = d.schedule.buffer_before_min || 0;
+  document.getElementById('s-ba').value = d.schedule.buffer_after_min || 30;
+  document.getElementById('s-notice').value = d.schedule.min_notice_hours || 0;
+  document.getElementById('s-adv').value = d.schedule.max_advance_days || 30;
+  document.getElementById('s-maxday').value = d.schedule.max_per_day || '';
+  RULES = {};
+  (d.rules||[]).forEach(r => { (RULES[r.weekday]=RULES[r.weekday]||[]).push([r.start_min, r.end_min]); });
+  renderDays();
+  renderPages(d);
+  renderVacations(d.overrides || []);
+  tick();
+}
+
+function renderPages(d){
+  const box = document.getElementById('pages-info');
+  const pages = d.pages || [];
+  const n = d.pages_count || 0;
+  box.innerHTML = pages.length
+    ? pages.map(p => '<div class="pg">' + ico('i-calendar') + esc(p.project_name || p.slug) + '</div>').join('')
+    : '<div class="hint">Применяется к ' + n + ' ' + plural(n, 'странице', 'страницам', 'страницам') + ' бронирования.</div>';
+}
+
+function renderVacations(list){
+  const closed = list.filter(o => o.is_closed);
+  const box = document.getElementById('vac-list');
+  if (!closed.length) { box.innerHTML = '<div class="hint">Нерабочих периодов не задано.</div>'; return; }
+  box.innerHTML = closed.map(o => {
+    const range = (o.end_date && o.end_date !== o.date) ? (dfmt(o.date) + ' — ' + dfmt(o.end_date)) : dfmt(o.date);
+    return '<div class="vac-row"><span style="color:#ddd">' + range + '</span>'
+      + '<button class="ibtn" title="Удалить период" onclick="delVacation(' + o.id + ')">' + ico('i-del') + '</button></div>';
+  }).join('');
+}
+function dfmt(s){ return String(s).slice(0,10).split('-').reverse().join('.'); }
+
+async function addVacation(){
+  const from = document.getElementById('v-from').value, to = document.getElementById('v-to').value;
+  if (!from) { alert('Укажите дату начала'); return; }
+  await fetch('/api/avail/overrides', { method: 'POST', credentials: 'same-origin', headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ date: from, end_date: to || from, is_closed: true }) });
+  document.getElementById('v-from').value = ''; document.getElementById('v-to').value = '';
+  load();
+}
+async function delVacation(id){
+  await fetch('/api/avail/overrides/' + id, { method: 'DELETE', credentials: 'same-origin' });
+  load();
+}
+
+async function saveAll(){
+  await fetch('/api/avail/schedule', {method:'PUT', credentials:'same-origin', headers:{'Content-Type':'application/json'},
+    body: JSON.stringify({
+      name: document.getElementById('s-name').value, tz: document.getElementById('s-tz').value, ics_url: ICS_LIST.join(','),
+      duration_min: document.getElementById('s-dur').value,
+      buffer_before_min: document.getElementById('s-bb').value,
+      buffer_after_min: document.getElementById('s-ba').value,
+      min_notice_hours: document.getElementById('s-notice').value,
+      max_advance_days: document.getElementById('s-adv').value,
+      max_per_day: document.getElementById('s-maxday').value
+    })});
+  const rules = [];
+  Object.keys(RULES).forEach(wd => (RULES[wd]||[]).forEach(([s,e]) => { if (e>s) rules.push({weekday:+wd, start_min:s, end_min:e}); }));
+  await fetch('/api/avail/rules', {method:'PUT', credentials:'same-origin', headers:{'Content-Type':'application/json'}, body: JSON.stringify({rules})});
+  const el = document.getElementById('saved'); el.classList.add('on'); setTimeout(()=>el.classList.remove('on'), 1600);
+  load();
+}
+
+document.getElementById('s-tz').addEventListener('change', () => { tick(); renderDays(); });
+
+load();
+</script>
+<script src="/sidebar.js"></script>
+</body></html>
