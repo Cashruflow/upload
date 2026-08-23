@@ -17,7 +17,7 @@
 
 <!-- iPhone 390pt. Поля страницы = 44px (--ui-page-pad), мобильного правила нет —
      поэтому под контент остаётся 302px, внутри карточки 260px. -->
-<div class="bm" style="width:390px; height:1440px; background:#0f0f0f; color:#fff; position:relative; overflow:hidden">
+<div class="bm" style="width:390px; height:2240px; background:#0f0f0f; color:#fff; position:relative; overflow:hidden">
 
   <!-- header: flex-wrap, часы уезжают под заголовок и под кнопку меню -->
   <div style="padding:16px 24px; border-bottom:1px solid #222; display:flex; justify-content:space-between; align-items:center; gap:12px; flex-wrap:wrap">
@@ -138,14 +138,81 @@
         </div>
       </div>
 
+      <div style="display:flex; align-items:flex-start; gap:10px; padding:9px 0; border-bottom:1px solid #1c1c1c; flex-wrap:wrap">
+        <div style="width:110px; display:flex; align-items:center; gap:8px; font-size:13px; padding-top:8px"><span style="width:16px; height:16px; border-radius:3px; background:#00a0ff; display:inline-block"></span> Чт</div>
+        <div style="flex:1; min-width:220px; display:flex; flex-direction:column; gap:6px">
+          <div style="display:flex; align-items:center; gap:6px">
+            <div style="background:#1a1a1a; border:1px solid #2a2a2a; border-radius:8px; padding:6px 8px; font-size:16px">10:00</div>
+            <span style="font-size:16px; color:#ddd">—</span>
+            <div style="background:#1a1a1a; border:1px solid #2a2a2a; border-radius:8px; padding:6px 8px; font-size:16px">19:00</div>
+            <span style="color:#888; padding:0 4px; font-size:16px">×</span>
+          </div>
+        </div>
+        <div style="display:flex; gap:4px; padding-top:6px">
+          <span style="color:#888; font-size:14px; padding:2px 6px">＋</span>
+          <span style="color:#888; font-size:14px; padding:2px 6px">⧉</span>
+        </div>
+      </div>
+
+      <div style="display:flex; align-items:flex-start; gap:10px; padding:9px 0; border-bottom:1px solid #1c1c1c; flex-wrap:wrap">
+        <div style="width:110px; display:flex; align-items:center; gap:8px; font-size:13px; padding-top:8px"><span style="width:16px; height:16px; border-radius:3px; border:1px solid #3a3a3a; background:#151515; display:inline-block"></span> Пт</div>
+        <div style="flex:1; min-width:220px; display:flex; flex-direction:column; gap:6px"></div>
+        <div style="display:flex; gap:4px; padding-top:6px">
+          <span style="color:#888; font-size:14px; padding:2px 6px">＋</span>
+          <span style="color:#888; font-size:14px; padding:2px 6px">⧉</span>
+        </div>
+      </div>
+
+      <div style="display:flex; align-items:flex-start; gap:10px; padding:9px 0; border-bottom:1px solid #1c1c1c; flex-wrap:wrap">
+        <div style="width:110px; display:flex; align-items:center; gap:8px; font-size:13px; padding-top:8px"><span style="width:16px; height:16px; border-radius:3px; border:1px solid #3a3a3a; background:#151515; display:inline-block"></span> Сб</div>
+        <div style="flex:1; min-width:220px; display:flex; flex-direction:column; gap:6px"></div>
+        <div style="display:flex; gap:4px; padding-top:6px">
+          <span style="color:#888; font-size:14px; padding:2px 6px">＋</span>
+          <span style="color:#888; font-size:14px; padding:2px 6px">⧉</span>
+        </div>
+      </div>
+
+      <div style="display:flex; align-items:flex-start; gap:10px; padding:9px 0; border-bottom:1px solid #1c1c1c; flex-wrap:wrap">
+        <div style="width:110px; display:flex; align-items:center; gap:8px; font-size:13px; padding-top:8px"><span style="width:16px; height:16px; border-radius:3px; border:1px solid #3a3a3a; background:#151515; display:inline-block"></span> Вс</div>
+        <div style="flex:1; min-width:220px; display:flex; flex-direction:column; gap:6px"></div>
+        <div style="display:flex; gap:4px; padding-top:6px">
+          <span style="color:#888; font-size:14px; padding:2px 6px">＋</span>
+          <span style="color:#888; font-size:14px; padding:2px 6px">⧉</span>
+        </div>
+      </div>
+
       <div style="font-size:11px; color:#8b8b8b; margin-top:8px">Часовой пояс из карточки выше. Дни без интервалов = выходной.</div>
+    </div>
+
+    <div style="background:#141414; border:1px solid #232323; border-radius:12px; padding:20px; margin-bottom:16px">
+      <div style="font-size:14px; color:#ddd; margin-bottom:14px; font-weight:700">Отпуск / нерабочие даты</div>
+      <div style="display:flex; gap:10px; align-items:center; flex-wrap:wrap">
+        <div>
+          <div style="font-size:11px; color:#8b8b8b; margin-bottom:5px">С</div>
+          <div style="background:#1a1a1a; border:1px solid #333; border-radius:8px; padding:9px 11px; font-size:16px; display:flex; gap:14px; align-items:center">01.09.2026 <span style="color:#8a8a8a">▤</span></div>
+        </div>
+        <div>
+          <div style="font-size:11px; color:#8b8b8b; margin-bottom:5px">По</div>
+          <div style="background:#1a1a1a; border:1px solid #333; border-radius:8px; padding:9px 11px; font-size:16px; display:flex; gap:14px; align-items:center">10.09.2026 <span style="color:#8a8a8a">▤</span></div>
+        </div>
+        <div style="padding-top:18px">
+          <div style="display:inline-flex; background:transparent; color:#ccc; border:1px solid #333; border-radius:8px; padding:10px 18px; font-size:13px; font-weight:500">Добавить</div>
+        </div>
+      </div>
+      <div style="font-size:11px; color:#8b8b8b; margin-top:10px">
+        <div style="display:flex; justify-content:space-between; align-items:center; padding:6px 0; border-bottom:1px solid #1c1c1c"><span style="color:#ddd">03.01.2027 — 09.01.2027</span><span style="color:#ff7b7b; font-size:14px; padding:2px 6px">Удалить</span></div>
+      </div>
+    </div>
+
+    <div style="display:flex; gap:8px; align-items:center; margin-top:6px">
+      <div style="display:inline-flex; align-items:center; justify-content:center; background:#00a0ff; color:#fff; border:1px solid #00a0ff; border-radius:8px; padding:10px 18px; font-size:13px; font-weight:500">Сохранить</div>
     </div>
 
   </div>
 
   <!-- линия сгиба: первый экран заканчивается здесь -->
   <div style="position:absolute; left:0; right:0; top:844px; border-top:1px dashed #3a3a3a; height:0"></div>
-  <div style="position:absolute; right:8px; top:850px; font-size:10px; color:#4a4a4a">первый экран, 844pt · «Сохранить» ещё ниже</div>
+  <div style="position:absolute; right:8px; top:850px; font-size:10px; color:#4a4a4a">первый экран, 844pt — «Сохранить» почти на 2000px ниже</div>
 </div>
 </x-dc>
 </body>
