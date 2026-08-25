@@ -1,0 +1,198 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <style>
+    body { margin:0; font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; }
+    a { color:#00a0ff; text-decoration:none; } a:hover { color:#6ab0f5; }
+    .sk { background:#2a2a2a; border-radius:3px; height:8px; display:block; }
+    .seg { height:30px; display:flex; align-items:center; justify-content:center; font-size:10px;
+           white-space:nowrap; padding:0 4px 0 10px; margin-right:-7px; color:#0a0a0a; font-weight:600;
+           clip-path: polygon(0 0, calc(100% - 9px) 0, 100% 50%, calc(100% - 9px) 100%, 0 100%, 9px 50%); }
+    .seg.first { clip-path: polygon(0 0, calc(100% - 9px) 0, 100% 50%, calc(100% - 9px) 100%, 0 100%); }
+    .seg.last  { clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%, 9px 50%); margin-right:0; }
+  </style>
+</helmet>
+
+<div style="width:1120px; background:#0a0a0a; color:#e8e8e8; font-size:13px; padding:0 0 28px;">
+
+  <div style="display:flex; align-items:center; gap:10px; padding:18px 26px 0;">
+    <span style="background:#fbbf24; color:#1a1200; font-size:11px; font-weight:700; letter-spacing:.06em; padding:3px 9px; border-radius:6px;">КОМПОНЕНТ</span>
+    <span style="font-size:15px; font-weight:600;">Полоска смены стадии в карточке лида — три варианта</span>
+    <span style="margin-left:auto; color:#666; font-size:12px;">под заголовком модалки, как в Б24</span>
+  </div>
+  <div style="height:1px; background:#1a1a1a; margin:14px 0 0;"></div>
+
+  <!-- ВАРИАНТ 1 -->
+  <div style="padding:18px 26px 0;">
+    <div style="display:flex; align-items:baseline; gap:10px;">
+      <div style="font-size:14px; font-weight:600;">Вариант 1 — стрелки Б24 во всю ширину</div>
+      <div style="color:#666; font-size:12px;">требует расширить модалку лида с 600px до ~940px</div>
+    </div>
+
+    <div style="background:#161616; border:1px solid #2a2a2a; border-radius:10px; padding:20px; margin-top:10px; width:940px;">
+      <!-- шапка модалки -->
+      <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:12px;">
+        <div>
+          <div style="display:flex; gap:8px; align-items:baseline;">
+            <span style="color:#fbbf24; font-size:15px; font-weight:600;">#412</span>
+            <span class="sk" style="width:200px; height:10px;"></span>
+          </div>
+          <div style="display:flex; gap:6px; margin-top:8px;">
+            <span style="background:#1a1a1a; border:1px solid #333; color:#4ade80; font-size:10px; padding:2px 8px; border-radius:8px;">Tilda</span>
+            <span style="background:#1a1a1a; border:1px solid #333; color:#8b8b8b; font-size:10px; padding:2px 8px; border-radius:8px;">Проект</span>
+          </div>
+        </div>
+        <div style="color:#fbbf24; font-weight:600; font-size:15px;">[СУММА] ₽</div>
+      </div>
+
+      <!-- полоска стадий -->
+      <div style="display:flex; margin-top:16px;">
+        <div class="seg first" style="flex:1; background:#4a86e8;">Новый</div>
+        <div class="seg" style="flex:1; background:#a479e2;">Квалиф.</div>
+        <div class="seg" style="flex:1; background:#8e63ce;">Триал</div>
+        <div class="seg" style="flex:1; background:#999999;">Ожидание</div>
+        <div class="seg" style="flex:1.25; background:#f2c960; box-shadow:0 0 0 1px #f2c960;">Счёт-оферта</div>
+        <div class="seg" style="flex:1; background:#1a1a1a; color:#666;">ЭДО</div>
+        <div class="seg" style="flex:1; background:#1a1a1a; color:#666;">Произв.</div>
+        <div class="seg" style="flex:1; background:#1a1a1a; color:#666;">Сдача</div>
+        <div class="seg last" style="flex:1; background:#1a1a1a; color:#666;">Акт</div>
+      </div>
+
+      <div style="display:flex; align-items:center; gap:10px; margin-top:12px;">
+        <div style="color:#666; font-size:11px;">Текущая: <span style="color:#f2c960;">Счёт-оферта</span> · 4 дня в стадии</div>
+        <div style="margin-left:auto; display:flex; gap:8px;">
+          <div style="background:#14261c; border:1px solid #1f5138; color:#44b984; padding:6px 14px; border-radius:8px; font-size:12px;">Успешно</div>
+          <div style="background:#2a1414; border:1px solid #4a2020; color:#f87171; padding:6px 14px; border-radius:8px; font-size:12px;">Закрыт</div>
+          <div style="background:#1a1a1a; border:1px solid #333; color:#8b8b8b; padding:6px 14px; border-radius:8px; font-size:12px;">Спам</div>
+        </div>
+      </div>
+
+      <div style="height:1px; background:#262626; margin:16px 0 0;"></div>
+      <div style="display:flex; gap:4px; margin-top:12px;">
+        <div style="padding:8px 14px; font-size:13px; color:#00a0ff; border-bottom:2px solid #00a0ff;">Основное</div>
+        <div style="padding:8px 14px; font-size:13px; color:#888;">Финансы</div>
+        <div style="padding:8px 14px; font-size:13px; color:#888;">Аналитика</div>
+        <div style="padding:8px 14px; font-size:13px; color:#888;">Задачи</div>
+      </div>
+    </div>
+
+    <div style="color:#666; font-size:11px; margin-top:8px; line-height:1.5; max-width:940px;">
+      Три финальные стадии (Успешно / Закрыт / Спам) вынесены вправо отдельно — в Б24 так же: они не «следующий шаг», а выход из воронки.
+      Стадия «Объединён» в полоску не попадает вообще, её ставит только слияние лидов.
+    </div>
+  </div>
+
+  <!-- ВАРИАНТ 2 -->
+  <div style="padding:26px 26px 0;">
+    <div style="display:flex; align-items:baseline; gap:10px;">
+      <div style="font-size:14px; font-weight:600;">Вариант 2 — компактная, влезает в текущие 600px</div>
+      <div style="color:#666; font-size:12px;">модалку трогать не надо</div>
+    </div>
+
+    <div style="background:#161616; border:1px solid #2a2a2a; border-radius:10px; padding:20px; margin-top:10px; width:600px;">
+      <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:12px;">
+        <div style="display:flex; gap:8px; align-items:baseline;">
+          <span style="color:#fbbf24; font-size:15px; font-weight:600;">#412</span>
+          <span class="sk" style="width:150px; height:10px;"></span>
+        </div>
+        <div style="color:#fbbf24; font-weight:600; font-size:15px;">[СУММА] ₽</div>
+      </div>
+
+      <div style="display:flex; align-items:center; gap:10px; margin-top:14px; background:#111; border:1px solid #262626; border-radius:8px; padding:9px 11px;">
+        <span style="width:9px; height:9px; border-radius:50%; background:#f2c960; flex:0 0 auto;"></span>
+        <span style="font-size:13px; font-weight:600;">Счёт-оферта</span>
+        <span style="color:#666; font-size:11px;">5 из 10</span>
+        <div style="flex:1; height:5px; background:#1f1f1f; border-radius:3px; overflow:hidden; min-width:80px;">
+          <div style="width:50%; height:100%; background:#f2c960;"></div>
+        </div>
+        <div style="background:#1a1a1a; border:1px solid #333; color:#8b8b8b; padding:5px 11px; border-radius:8px; font-size:12px; white-space:nowrap;">Сменить ▾</div>
+      </div>
+
+      <!-- раскрытый список -->
+      <div style="background:#141414; border:1px solid #2a2a2a; border-radius:8px; margin-top:6px; padding:6px; width:280px;">
+        <div style="display:flex; align-items:center; gap:8px; padding:6px 8px; font-size:12px; color:#8b8b8b;"><span style="width:8px; height:8px; border-radius:50%; background:#eaa041;"></span>ЭДО<span style="margin-left:auto; color:#4ade80; font-size:10px;">следующая</span></div>
+        <div style="display:flex; align-items:center; gap:8px; padding:6px 8px; font-size:12px; color:#8b8b8b;"><span style="width:8px; height:8px; border-radius:50%; background:#4986e7;"></span>Производство</div>
+        <div style="display:flex; align-items:center; gap:8px; padding:6px 8px; font-size:12px; color:#8b8b8b;"><span style="width:8px; height:8px; border-radius:50%; background:#3dc789;"></span>Сдача</div>
+        <div style="height:1px; background:#262626; margin:4px 8px;"></div>
+        <div style="display:flex; align-items:center; gap:8px; padding:6px 8px; font-size:12px; color:#44b984;"><span style="width:8px; height:8px; border-radius:50%; background:#44b984;"></span>Успешно</div>
+        <div style="display:flex; align-items:center; gap:8px; padding:6px 8px; font-size:12px; color:#f87171;"><span style="width:8px; height:8px; border-radius:50%; background:#e05252;"></span>Закрыт</div>
+      </div>
+    </div>
+
+    <div style="color:#666; font-size:11px; margin-top:8px; line-height:1.5; max-width:600px;">
+      Дешевле всех: одна строка вместо двенадцати сегментов, ничего не ломает на телефоне. Но воронку целиком не видно — только «где я и сколько осталось».
+    </div>
+  </div>
+
+  <!-- ВАРИАНТ 3 -->
+  <div style="padding:26px 26px 0;">
+    <div style="display:flex; align-items:baseline; gap:10px;">
+      <div style="font-size:14px; font-weight:600;">Вариант 3 — степпер с прокруткой</div>
+      <div style="color:#666; font-size:12px;">все 12 стадий, одинаково на ПК и телефоне</div>
+    </div>
+
+    <div style="background:#161616; border:1px solid #2a2a2a; border-radius:10px; padding:20px; margin-top:10px; width:600px; overflow:hidden;">
+      <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:12px;">
+        <div style="display:flex; gap:8px; align-items:baseline;">
+          <span style="color:#fbbf24; font-size:15px; font-weight:600;">#412</span>
+          <span class="sk" style="width:150px; height:10px;"></span>
+        </div>
+        <div style="color:#fbbf24; font-weight:600; font-size:15px;">[СУММА] ₽</div>
+      </div>
+
+      <div style="margin-top:16px; position:relative;">
+        <div style="position:absolute; left:9px; right:0; top:9px; height:2px; background:#262626;"></div>
+        <div style="position:absolute; left:9px; top:9px; width:46%; height:2px; background:#8e63ce;"></div>
+        <div style="display:flex; gap:0; position:relative;">
+          <div style="width:96px; flex:0 0 auto; text-align:center;">
+            <div style="width:18px; height:18px; border-radius:50%; background:#4a86e8; margin:0 auto;"></div>
+            <div style="font-size:10px; color:#8b8b8b; margin-top:6px;">Новый</div>
+          </div>
+          <div style="width:96px; flex:0 0 auto; text-align:center;">
+            <div style="width:18px; height:18px; border-radius:50%; background:#a479e2; margin:0 auto;"></div>
+            <div style="font-size:10px; color:#8b8b8b; margin-top:6px;">Квалификация</div>
+          </div>
+          <div style="width:96px; flex:0 0 auto; text-align:center;">
+            <div style="width:18px; height:18px; border-radius:50%; background:#8e63ce; margin:0 auto;"></div>
+            <div style="font-size:10px; color:#8b8b8b; margin-top:6px;">Триал</div>
+          </div>
+          <div style="width:96px; flex:0 0 auto; text-align:center;">
+            <div style="width:18px; height:18px; border-radius:50%; background:#999999; margin:0 auto;"></div>
+            <div style="font-size:10px; color:#8b8b8b; margin-top:6px;">Ожидание</div>
+          </div>
+          <div style="width:96px; flex:0 0 auto; text-align:center;">
+            <div style="width:18px; height:18px; border-radius:50%; background:#f2c960; margin:0 auto; box-shadow:0 0 0 4px rgba(242,201,96,.18);"></div>
+            <div style="font-size:10px; color:#f2c960; margin-top:6px; font-weight:600;">Счёт-оферта</div>
+          </div>
+          <div style="width:96px; flex:0 0 auto; text-align:center;">
+            <div style="width:18px; height:18px; border-radius:50%; background:#0a0a0a; border:2px solid #262626; margin:0 auto;"></div>
+            <div style="font-size:10px; color:#666; margin-top:6px;">ЭДО</div>
+          </div>
+        </div>
+        <div style="position:absolute; right:-20px; top:0; bottom:0; width:56px; background:linear-gradient(90deg, rgba(22,22,22,0), #161616 70%); pointer-events:none;"></div>
+      </div>
+
+      <div style="display:flex; align-items:center; gap:8px; margin-top:14px;">
+        <div style="color:#666; font-size:11px;">← прокрутка до «Акт» и финальных стадий</div>
+        <div style="margin-left:auto; display:flex; gap:6px;">
+          <div style="background:#14261c; border:1px solid #1f5138; color:#44b984; padding:5px 12px; border-radius:8px; font-size:12px;">Успешно</div>
+          <div style="background:#2a1414; border:1px solid #4a2020; color:#f87171; padding:5px 12px; border-radius:8px; font-size:12px;">Закрыт</div>
+        </div>
+      </div>
+    </div>
+
+    <div style="color:#666; font-size:11px; margin-top:8px; line-height:1.5; max-width:600px;">
+      Единственный вариант, который честно живёт на телефоне: горизонтальная прокрутка вместо сплющенных стрелок. Взамен — на ПК половина воронки всегда за краем.
+    </div>
+  </div>
+
+</div>
+</x-dc>
+</body>
+</html>
