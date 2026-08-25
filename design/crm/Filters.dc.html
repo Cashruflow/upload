@@ -34,7 +34,7 @@
       <div style="display:flex; background:#141414; border:1px solid #262626; border-radius:8px; padding:3px; gap:3px; margin-top:8px; width:fit-content;">
         <div style="background:#00a0ff; color:#fff; padding:7px 17px; border-radius:6px;">Все <span style="opacity:.75;">137</span></div>
         <div style="color:#8b8b8b; padding:7px 17px; border-radius:6px;">В работе <span style="color:#666;">38</span></div>
-        <div style="color:#8b8b8b; padding:7px 17px; border-radius:6px;">Закрытые <span style="color:#666;">99</span></div>
+        <div style="color:#8b8b8b; padding:7px 17px; border-radius:6px;">Закрытые <span style="color:#666;">86</span></div>
       </div>
       <div style="color:#666; font-size:11px; margin-top:7px; line-height:1.5;">Читается как один переключатель с тремя положениями — что и есть правда: состояния взаимоисключающие.</div>
 
@@ -42,7 +42,7 @@
       <div style="display:flex; gap:8px; margin-top:8px;">
         <div style="background:#00a0ff22; border:1px solid #00a0ff; color:#00a0ff; padding:7px 14px; border-radius:8px;">Все <span style="opacity:.7;">137</span></div>
         <div style="background:#1a1a1a; border:1px solid #2a2a2a; color:#8b8b8b; padding:7px 14px; border-radius:8px;">В работе <span style="color:#666;">38</span></div>
-        <div style="background:#1a1a1a; border:1px solid #2a2a2a; color:#8b8b8b; padding:7px 14px; border-radius:8px;">Закрытые <span style="color:#666;">99</span></div>
+        <div style="background:#1a1a1a; border:1px solid #2a2a2a; color:#8b8b8b; padding:7px 14px; border-radius:8px;">Закрытые <span style="color:#666;">86</span></div>
       </div>
       <div style="color:#666; font-size:11px; margin-top:7px; line-height:1.5;">Один в один с существующей навигацией страниц — но там пилюли это ссылки, а тут состояние. Легко спутать.</div>
 
@@ -104,9 +104,9 @@
           <div style="text-align:center; color:#4ade80;">✓</div><div style="text-align:center; color:#333;">—</div>
         </div>
 
-        <div style="display:grid; grid-template-columns:minmax(0,1fr) 74px 74px; gap:8px; align-items:center; padding:6px 0; background:#1a1508; border-radius:6px; margin:4px -6px; padding-left:6px; padding-right:6px;">
-          <div class="row" style="padding:0;"><span class="dot" style="background:#44b984;"></span>Успешно</div>
-          <div style="text-align:center; color:#fbbf24;">?</div><div style="text-align:center; color:#333;">—</div>
+        <div style="display:grid; grid-template-columns:minmax(0,1fr) 74px 74px; gap:8px; align-items:center; padding:6px 0; background:#0f1a13; border-radius:6px; margin:4px -6px; padding-left:6px; padding-right:6px;">
+          <div class="row" style="padding:0;"><span class="dot" style="background:#44b984;"></span>Успешно<span style="color:#666; font-size:11px; margin-left:6px;">видно только во «Все»</span></div>
+          <div style="text-align:center; color:#333;">—</div><div style="text-align:center; color:#333;">—</div>
         </div>
 
         <div style="display:grid; grid-template-columns:minmax(0,1fr) 74px 74px; gap:8px; align-items:center; padding:4px 0;">
@@ -119,16 +119,16 @@
         </div>
       </div>
 
-      <div style="background:#1a1508; border:1px solid #3a2f10; border-radius:8px; padding:12px; margin-top:12px;">
+      <div style="background:#0f1a13; border:1px solid #1f5138; border-radius:8px; padding:12px; margin-top:12px;">
         <div style="display:flex; gap:9px; align-items:flex-start;">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fbbf24" stroke-width="2" stroke-linecap="round" style="flex:0 0 auto; margin-top:1px;"><circle cx="12" cy="12" r="9"/><path d="M12 8v5"/><path d="M12 16.5v.01"/></svg>
-          <div style="color:#d8c9a0; font-size:12px; line-height:1.6;">
-            <b>Одно решение за тобой.</b> Ты сказал: «В работе» — все кроме закрытых, а «Закрытые» — все кроме в работе и успешных.
-            Это два разных ответа про стадию <b>«Успешно»</b>: по первой фразе она в «В работе», по второй — нет.<br>
-            На эскизах она пока <b>не</b> в «В работе» — то есть «В работе» = 9 стадий от «Новый» до «Акт», а «Успешно» видно только во «Все».
-            Скажи, если наоборот.
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#44b984" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex:0 0 auto; margin-top:1px;"><path d="M20 6 9 17l-5-5"/></svg>
+          <div style="color:#9fc7b2; font-size:12px; line-height:1.6;">
+            <b>Решено.</b> «В работе» — девять стадий от «Новый» до «Акт». «Закрытые» — «Закрыт» и «Спам».
+            «Успешно» не попадает ни туда, ни туда и видна только во «Все»: сделка уже закончилась, но браком не была.<br>
+            Три набора не пересекаются и вместе дают всё: 137 = 38 в работе + 13 успешных + 86 закрытых и спама. Сумма счётчиков сходится — это проверка, что группы разошлись правильно.
           </div>
         </div>
+      </div>
       </div>
     </div>
   </div>

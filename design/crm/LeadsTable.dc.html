@@ -1,0 +1,296 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <style>
+    body { margin:0; font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; }
+    a { color:#00a0ff; text-decoration:none; } a:hover { color:#6ab0f5; }
+    .sb-link { display:flex; align-items:center; gap:11px; padding:9px 20px; color:#aaa; font-size:14px; border-left:3px solid transparent; }
+    .sb-link.active { color:#00a0ff; border-left-color:#00a0ff; background:#00a0ff11; font-weight:600; }
+    .sb-group { padding:14px 20px 6px; font-size:10px; letter-spacing:.08em; color:#555; text-transform:uppercase; }
+    .tab { padding:7px 14px; border-radius:8px; font-size:13px; background:#1a1a1a; border:1px solid #2a2a2a; color:#8b8b8b; }
+    .tab.on { background:#00a0ff22; border-color:#00a0ff; color:#00a0ff; }
+    .th { color:#666; font-size:11px; text-transform:uppercase; letter-spacing:.03em; }
+    .sk { background:#2a2a2a; border-radius:3px; height:9px; display:block; }
+    .skl { background:#1f1f1f; border-radius:3px; height:9px; display:block; }
+    .pick { width:16px; height:16px; border-radius:4px; border:1px solid #3a3a3a; background:#141414; }
+    .pick.on { background:#00a0ff; border-color:#00a0ff; }
+    .stage { background:#1a1a1a; border:1px solid #333; font-size:11px; padding:2px 9px; border-radius:8px; white-space:nowrap; }
+    .warn-chip { background:#2a1414; border:1px solid #4a2020; color:#f87171; font-size:10px; padding:1px 7px; border-radius:8px; }
+    .frz { background:#141414; }
+    .trow:hover { background:#171717; }
+  </style>
+</helmet>
+
+<div style="width:1600px; min-height:1180px; display:flex; align-items:stretch; background:#0f0f0f; color:#e8e8e8; font-size:13px;">
+
+  <div style="width:230px; flex:0 0 auto; background:#0a0a0a; border-right:1px solid #1a1a1a; padding:16px 0;">
+    <div style="padding:6px 20px 18px; font-size:16px; font-weight:700; color:#fff; display:flex; align-items:center; gap:8px;">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00a0ff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="m7 15 4-4 3 3 5-6"/></svg>
+      CashFlow <span style="font-size:11px; color:#555; font-weight:400;">v3</span>
+    </div>
+    <div class="sb-group">Работа</div>
+    <div class="sb-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#8a8a8a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 5h4"/><path d="M3 12h4"/><path d="M3 19h4"/><path d="M11 5h10"/><path d="M11 12h10"/><path d="M11 19h10"/></svg>Бэклог</div>
+    <div class="sb-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#8a8a8a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V7a2 2 0 0 1 2-2h4l2 2h6a2 2 0 0 1 2 2v11z"/></svg>Проекты</div>
+    <div class="sb-group">AI-CRM</div>
+    <div class="sb-link active"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00a0ff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M8 9h8"/><path d="M8 13h5"/></svg>CRM</div>
+    <div class="sb-link" style="padding-left:44px; color:#8b8b8b; font-size:13px;">Обзор</div>
+    <div class="sb-link" style="padding-left:44px; color:#00a0ff; font-size:13px; font-weight:600;">Лиды</div>
+    <div class="sb-link" style="padding-left:44px; color:#8b8b8b; font-size:13px;">Люди</div>
+    <div class="sb-link" style="padding-left:44px; color:#8b8b8b; font-size:13px;">Компании</div>
+    <div class="sb-link" style="padding-left:44px; color:#8b8b8b; font-size:13px;">Чаты</div>
+    <div class="sb-link" style="padding-left:44px; color:#8b8b8b; font-size:13px;">Документы</div>
+    <div class="sb-link" style="padding-left:44px; color:#8b8b8b; font-size:13px;">Услуги</div>
+  </div>
+
+  <div style="flex:1; min-width:0; padding:0 26px 30px;">
+
+    <div style="display:flex; align-items:center; gap:14px; padding:20px 0 0;">
+      <div style="font-size:20px; font-weight:600;">CRM — Лиды</div>
+      <span style="background:#1a1a1a; border:1px solid #2a2a2a; color:#666; font-size:11px; padding:2px 8px; border-radius:8px;">crm v1.4.0</span>
+      <div style="margin-left:auto; display:flex; gap:8px; align-items:center;">
+        <div style="background:#1a1a1a; border:1px solid #2a2a2a; color:#8b8b8b; padding:8px 14px; border-radius:8px; display:flex; align-items:center; gap:7px;">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 15V3"/><path d="m7 10 5 5 5-5"/><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/></svg>Экспорт
+        </div>
+        <div style="background:#1a1a1a; border:1px solid #2a2a2a; color:#8b8b8b; padding:8px 14px; border-radius:8px; display:flex; align-items:center; gap:7px;">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="m7 8 5-5 5 5"/><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/></svg>Импорт
+        </div>
+        <div style="background:#00a0ff; color:#fff; padding:8px 16px; border-radius:8px;">+ Лид</div>
+      </div>
+    </div>
+
+    <div style="display:flex; gap:8px; padding:16px 0 0; flex-wrap:wrap;">
+      <div class="tab">Обзор</div>
+      <div class="tab on">Лиды <span style="opacity:.7;">137</span></div>
+      <div class="tab">Люди</div>
+      <div class="tab">Компании</div>
+      <div class="tab">Чаты <span style="color:#f87171;">3</span></div>
+      <div class="tab">Документы</div>
+      <div class="tab">Услуги</div>
+      <div class="tab">SORIC</div>
+      <div class="tab" style="color:#666;">Поля</div>
+    </div>
+
+    <div style="display:flex; align-items:center; gap:10px; padding:16px 0 0; flex-wrap:wrap;">
+      <div style="display:flex; background:#141414; border:1px solid #262626; border-radius:8px; padding:3px; gap:3px;">
+        <div style="color:#8b8b8b; padding:6px 16px; border-radius:6px;">Все <span style="color:#666;">137</span></div>
+        <div style="background:#00a0ff; color:#fff; padding:6px 16px; border-radius:6px;">В работе <span style="opacity:.75;">38</span></div>
+        <div style="color:#8b8b8b; padding:6px 16px; border-radius:6px;">Закрытые <span style="color:#666;">86</span></div>
+      </div>
+      <div style="display:flex; align-items:center; gap:8px; background:#1a1a1a; border:1px solid #333; border-radius:8px; padding:0 11px; height:34px; width:250px;">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#666" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+        <span style="color:#666;">Поиск по лидам</span>
+      </div>
+      <div style="background:#1a1a1a; border:1px solid #333; border-radius:8px; padding:8px 12px; color:#8b8b8b;">Проект <span style="color:#555;">▾</span></div>
+      <div style="background:#1a1a1a; border:1px solid #333; border-radius:8px; padding:8px 12px; color:#8b8b8b;">Источник <span style="color:#555;">▾</span></div>
+      <div style="background:#1a1a1a; border:1px solid #333; border-radius:8px; padding:8px 12px; color:#8b8b8b;">Период <span style="color:#555;">▾</span></div>
+      <div style="background:#1a1a1a; border:1px solid #333; border-radius:8px; padding:8px 12px; color:#8b8b8b; display:flex; align-items:center; gap:7px;">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M7 12h10"/><path d="M10 18h4"/></svg>Колонки
+      </div>
+
+      <div style="margin-left:auto; display:flex; background:#141414; border:1px solid #262626; border-radius:8px; padding:3px; gap:3px;">
+        <div style="color:#8b8b8b; padding:6px 13px; border-radius:6px; font-size:12px; display:flex; align-items:center; gap:6px;">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="5" height="16" rx="1"/><rect x="10" y="4" width="5" height="11" rx="1"/><rect x="17" y="4" width="4" height="8" rx="1"/></svg>Канбан
+        </div>
+        <div style="background:#262626; color:#e8e8e8; padding:6px 13px; border-radius:6px; font-size:12px; display:flex; align-items:center; gap:6px;">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M3 12h18"/><path d="M3 18h18"/></svg>Реестр
+        </div>
+      </div>
+    </div>
+
+    <div style="background:#141414; border:1px solid #262626; border-radius:8px; padding:16px; margin-top:16px;">
+
+      <div style="display:grid; grid-template-columns:36px 58px 56px minmax(0,2fr) minmax(0,1.15fr) 126px 96px 84px 66px; gap:10px; align-items:center;" class="th">
+        <div><div class="pick"></div></div>
+        <div style="display:flex; align-items:center; gap:4px; color:#00a0ff;">#ID
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m6 15 6 6 6-6"/></svg>
+        </div>
+        <div></div>
+        <div>Название</div>
+        <div>Проект</div>
+        <div>Стадия</div>
+        <div style="text-align:right;">Сумма</div>
+        <div>Источник</div>
+        <div>Создан</div>
+      </div>
+      <div style="height:1px; background:#262626; margin:9px 0 2px;"></div>
+
+      <div class="trow" style="display:grid; grid-template-columns:36px 58px 56px minmax(0,2fr) minmax(0,1.15fr) 126px 96px 84px 66px; gap:10px; align-items:center; padding:9px 0;">
+        <div><div class="pick"></div></div>
+        <div class="frz" style="color:#fbbf24;">#412</div>
+        <div class="frz"><div style="display:flex; gap:8px; color:#666;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M8 6V4h8v2"/><path d="M19 6l-1 14H6L5 6"/></svg></div></div>
+        <div><span class="sk" style="width:200px;"></span></div>
+        <div><span class="skl" style="width:96px;"></span></div>
+        <div><span class="stage" style="color:#f2c960;">Счёт-оферта</span></div>
+        <div style="text-align:right; color:#fbbf24;">[СУММА]</div>
+        <div style="color:#8b8b8b; font-size:12px;">Tilda</div>
+        <div style="color:#666; font-size:12px;">25.08</div>
+      </div>
+      <div class="trow" style="display:grid; grid-template-columns:36px 58px 56px minmax(0,2fr) minmax(0,1.15fr) 126px 96px 84px 66px; gap:10px; align-items:center; padding:9px 0; border-top:1px solid #1a1a1a;">
+        <div><div class="pick"></div></div>
+        <div class="frz" style="color:#fbbf24;">#411</div>
+        <div class="frz"><div style="display:flex; gap:8px; color:#666;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M8 6V4h8v2"/><path d="M19 6l-1 14H6L5 6"/></svg></div></div>
+        <div><span class="sk" style="width:154px;"></span></div>
+        <div><span class="skl" style="width:74px;"></span></div>
+        <div><span class="stage" style="color:#a479e2;">Квалификация</span></div>
+        <div style="text-align:right; color:#fbbf24;">[СУММА]</div>
+        <div style="color:#8b8b8b; font-size:12px;">Roistat</div>
+        <div style="color:#666; font-size:12px;">25.08</div>
+      </div>
+      <div class="trow" style="display:grid; grid-template-columns:36px 58px 56px minmax(0,2fr) minmax(0,1.15fr) 126px 96px 84px 66px; gap:10px; align-items:center; padding:9px 0; border-top:1px solid #1a1a1a;">
+        <div><div class="pick"></div></div>
+        <div class="frz" style="color:#fbbf24;">#410</div>
+        <div class="frz"><div style="display:flex; gap:8px; color:#666;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M8 6V4h8v2"/><path d="M19 6l-1 14H6L5 6"/></svg></div></div>
+        <div><span class="sk" style="width:224px;"></span></div>
+        <div><span class="skl" style="width:104px;"></span></div>
+        <div><span class="stage" style="color:#4a86e8;">Новый</span></div>
+        <div style="text-align:right; color:#666;">—</div>
+        <div style="color:#8b8b8b; font-size:12px;">Tilda</div>
+        <div style="color:#666; font-size:12px;">24.08</div>
+      </div>
+      <div class="trow" style="display:grid; grid-template-columns:36px 58px 56px minmax(0,2fr) minmax(0,1.15fr) 126px 96px 84px 66px; gap:10px; align-items:center; padding:9px 0; border-top:1px solid #1a1a1a;">
+        <div><div class="pick"></div></div>
+        <div class="frz" style="color:#fbbf24;">#409</div>
+        <div class="frz"><div style="display:flex; gap:8px; color:#666;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M8 6V4h8v2"/><path d="M19 6l-1 14H6L5 6"/></svg></div></div>
+        <div><span class="sk" style="width:168px;"></span><div style="margin-top:6px;"><span class="warn-chip">без касания 8 дн.</span></div></div>
+        <div><span class="skl" style="width:88px;"></span></div>
+        <div><span class="stage" style="color:#4a86e8;">Новый</span></div>
+        <div style="text-align:right; color:#666;">—</div>
+        <div style="color:#8b8b8b; font-size:12px;">Чат</div>
+        <div style="color:#666; font-size:12px;">24.08</div>
+      </div>
+      <div class="trow" style="display:grid; grid-template-columns:36px 58px 56px minmax(0,2fr) minmax(0,1.15fr) 126px 96px 84px 66px; gap:10px; align-items:center; padding:9px 0; border-top:1px solid #1a1a1a;">
+        <div><div class="pick"></div></div>
+        <div class="frz" style="color:#fbbf24;">#406</div>
+        <div class="frz"><div style="display:flex; gap:8px; color:#666;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M8 6V4h8v2"/><path d="M19 6l-1 14H6L5 6"/></svg></div></div>
+        <div><span class="sk" style="width:186px;"></span><div style="margin-top:6px;"><span class="warn-chip">не оплачен 9 дн.</span></div></div>
+        <div><span class="skl" style="width:92px;"></span></div>
+        <div><span class="stage" style="color:#f2c960;">Счёт-оферта</span></div>
+        <div style="text-align:right; color:#fbbf24;">[СУММА]</div>
+        <div style="color:#8b8b8b; font-size:12px;">Tilda</div>
+        <div style="color:#666; font-size:12px;">22.08</div>
+      </div>
+      <div class="trow" style="display:grid; grid-template-columns:36px 58px 56px minmax(0,2fr) minmax(0,1.15fr) 126px 96px 84px 66px; gap:10px; align-items:center; padding:9px 0; border-top:1px solid #1a1a1a;">
+        <div><div class="pick"></div></div>
+        <div class="frz" style="color:#fbbf24;">#405</div>
+        <div class="frz"><div style="display:flex; gap:8px; color:#666;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M8 6V4h8v2"/><path d="M19 6l-1 14H6L5 6"/></svg></div></div>
+        <div><span class="sk" style="width:142px;"></span></div>
+        <div><span class="skl" style="width:68px;"></span></div>
+        <div><span class="stage" style="color:#a479e2;">Квалификация</span></div>
+        <div style="text-align:right; color:#fbbf24;">[СУММА]</div>
+        <div style="color:#8b8b8b; font-size:12px;">Чат</div>
+        <div style="color:#666; font-size:12px;">21.08</div>
+      </div>
+      <div class="trow" style="display:grid; grid-template-columns:36px 58px 56px minmax(0,2fr) minmax(0,1.15fr) 126px 96px 84px 66px; gap:10px; align-items:center; padding:9px 0; border-top:1px solid #1a1a1a;">
+        <div><div class="pick"></div></div>
+        <div class="frz" style="color:#fbbf24;">#402</div>
+        <div class="frz"><div style="display:flex; gap:8px; color:#666;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M8 6V4h8v2"/><path d="M19 6l-1 14H6L5 6"/></svg></div></div>
+        <div><span class="sk" style="width:210px;"></span></div>
+        <div><span class="skl" style="width:110px;"></span></div>
+        <div><span class="stage" style="color:#a479e2;">Квалификация</span></div>
+        <div style="text-align:right; color:#fbbf24;">[СУММА]</div>
+        <div style="color:#8b8b8b; font-size:12px;">Вручную</div>
+        <div style="color:#666; font-size:12px;">20.08</div>
+      </div>
+      <div class="trow" style="display:grid; grid-template-columns:36px 58px 56px minmax(0,2fr) minmax(0,1.15fr) 126px 96px 84px 66px; gap:10px; align-items:center; padding:9px 0; border-top:1px solid #1a1a1a;">
+        <div><div class="pick"></div></div>
+        <div class="frz" style="color:#fbbf24;">#399</div>
+        <div class="frz"><div style="display:flex; gap:8px; color:#666;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M8 6V4h8v2"/><path d="M19 6l-1 14H6L5 6"/></svg></div></div>
+        <div><span class="sk" style="width:160px;"></span><div style="margin-top:6px;"><span class="warn-chip">в стадии 21 день</span></div></div>
+        <div><span class="skl" style="width:82px;"></span></div>
+        <div><span class="stage" style="color:#999999;">Ожидание</span></div>
+        <div style="text-align:right; color:#fbbf24;">[СУММА]</div>
+        <div style="color:#8b8b8b; font-size:12px;">Tilda</div>
+        <div style="color:#666; font-size:12px;">18.08</div>
+      </div>
+      <div class="trow" style="display:grid; grid-template-columns:36px 58px 56px minmax(0,2fr) minmax(0,1.15fr) 126px 96px 84px 66px; gap:10px; align-items:center; padding:9px 0; border-top:1px solid #1a1a1a;">
+        <div><div class="pick"></div></div>
+        <div class="frz" style="color:#fbbf24;">#398</div>
+        <div class="frz"><div style="display:flex; gap:8px; color:#666;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M8 6V4h8v2"/><path d="M19 6l-1 14H6L5 6"/></svg></div></div>
+        <div><span class="sk" style="width:196px;"></span><div style="margin-top:6px;"><span class="warn-chip">счёт просрочен</span></div></div>
+        <div><span class="skl" style="width:98px;"></span></div>
+        <div><span class="stage" style="color:#f2c960;">Счёт-оферта</span></div>
+        <div style="text-align:right; color:#fbbf24;">[СУММА]</div>
+        <div style="color:#8b8b8b; font-size:12px;">Roistat</div>
+        <div style="color:#666; font-size:12px;">17.08</div>
+      </div>
+      <div class="trow" style="display:grid; grid-template-columns:36px 58px 56px minmax(0,2fr) minmax(0,1.15fr) 126px 96px 84px 66px; gap:10px; align-items:center; padding:9px 0; border-top:1px solid #1a1a1a;">
+        <div><div class="pick"></div></div>
+        <div class="frz" style="color:#fbbf24;">#396</div>
+        <div class="frz"><div style="display:flex; gap:8px; color:#666;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M8 6V4h8v2"/><path d="M19 6l-1 14H6L5 6"/></svg></div></div>
+        <div><span class="sk" style="width:132px;"></span></div>
+        <div><span class="skl" style="width:64px;"></span></div>
+        <div><span class="stage" style="color:#8e63ce;">Триал</span></div>
+        <div style="text-align:right; color:#fbbf24;">[СУММА]</div>
+        <div style="color:#8b8b8b; font-size:12px;">Tilda</div>
+        <div style="color:#666; font-size:12px;">15.08</div>
+      </div>
+      <div class="trow" style="display:grid; grid-template-columns:36px 58px 56px minmax(0,2fr) minmax(0,1.15fr) 126px 96px 84px 66px; gap:10px; align-items:center; padding:9px 0; border-top:1px solid #1a1a1a;">
+        <div><div class="pick"></div></div>
+        <div class="frz" style="color:#fbbf24;">#394</div>
+        <div class="frz"><div style="display:flex; gap:8px; color:#666;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M8 6V4h8v2"/><path d="M19 6l-1 14H6L5 6"/></svg></div></div>
+        <div><span class="sk" style="width:178px;"></span></div>
+        <div><span class="skl" style="width:90px;"></span></div>
+        <div><span class="stage" style="color:#8e63ce;">Триал</span></div>
+        <div style="text-align:right; color:#fbbf24;">[СУММА]</div>
+        <div style="color:#8b8b8b; font-size:12px;">Вручную</div>
+        <div style="color:#666; font-size:12px;">14.08</div>
+      </div>
+      <div class="trow" style="display:grid; grid-template-columns:36px 58px 56px minmax(0,2fr) minmax(0,1.15fr) 126px 96px 84px 66px; gap:10px; align-items:center; padding:9px 0; border-top:1px solid #1a1a1a;">
+        <div><div class="pick"></div></div>
+        <div class="frz" style="color:#fbbf24;">#390</div>
+        <div class="frz"><div style="display:flex; gap:8px; color:#666;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M8 6V4h8v2"/><path d="M19 6l-1 14H6L5 6"/></svg></div></div>
+        <div><span class="sk" style="width:150px;"></span></div>
+        <div><span class="skl" style="width:76px;"></span></div>
+        <div><span class="stage" style="color:#eaa041;">ЭДО</span></div>
+        <div style="text-align:right; color:#fbbf24;">[СУММА]</div>
+        <div style="color:#8b8b8b; font-size:12px;">Tilda</div>
+        <div style="color:#666; font-size:12px;">12.08</div>
+      </div>
+      <div style="height:1px; background:#262626; margin:10px 0;"></div>
+
+      <div style="display:flex; align-items:center; gap:14px; flex-wrap:wrap;">
+        <div style="color:#8b8b8b; font-size:12px;">Показано 12 из 38 · сумма на странице <span style="color:#fbbf24;">[СУММА] ₽</span></div>
+        <div style="margin-left:auto; display:flex; gap:6px; align-items:center;">
+          <div style="background:#1a1a1a; border:1px solid #2a2a2a; color:#666; padding:6px 11px; border-radius:8px; font-size:12px;">←</div>
+          <div style="background:#00a0ff22; border:1px solid #00a0ff; color:#00a0ff; padding:6px 12px; border-radius:8px; font-size:12px;">1</div>
+          <div style="background:#1a1a1a; border:1px solid #2a2a2a; color:#8b8b8b; padding:6px 12px; border-radius:8px; font-size:12px;">2</div>
+          <div style="background:#1a1a1a; border:1px solid #2a2a2a; color:#8b8b8b; padding:6px 12px; border-radius:8px; font-size:12px;">3</div>
+          <div style="background:#1a1a1a; border:1px solid #2a2a2a; color:#8b8b8b; padding:6px 11px; border-radius:8px; font-size:12px;">→</div>
+        </div>
+      </div>
+    </div>
+
+    <div style="display:grid; grid-template-columns:repeat(2, minmax(0,1fr)); gap:14px; margin-top:14px;">
+      <div style="background:#141414; border:1px solid #262626; border-radius:8px; padding:14px;">
+        <div style="color:#00a0ff; font-size:11px; text-transform:uppercase; letter-spacing:.04em;">Что берём из платформы, а не пишем заново</div>
+        <div style="color:#8b8b8b; font-size:12px; margin-top:10px; line-height:1.8;">
+          · Порядок колонок <b style="color:#e8e8e8;">#ID → иконки → название</b>, жёлтый ID — ADR-092, как в «Проектах» и «Продлениях».<br>
+          · Закрепление левых колонок при прокрутке вбок — атрибут <b style="color:#e8e8e8;">data-frz="3"</b>, модуль tbl-freeze.js. Свой sticky не пишем.<br>
+          · Ручная ширина колонок мышкой — атрибут <b style="color:#e8e8e8;">data-rsz="crm-leads"</b>, модуль tbl-resize.js.<br>
+          · Кнопки — классы ролей <b style="color:#e8e8e8;">.btn / .tbtn / .ibtn</b>, локального CSS не пишем вообще (ADR-063, ADR-068).<br>
+          · Иконки правки и корзины — только <b style="color:#e8e8e8;">.ibtn</b>: красный цвет корзины приезжает сам от значка i-del.
+        </div>
+      </div>
+
+      <div style="background:#141414; border:1px solid #262626; border-radius:8px; padding:14px;">
+        <div style="color:#00a0ff; font-size:11px; text-transform:uppercase; letter-spacing:.04em;">Реестр и канбан — один экран</div>
+        <div style="color:#8b8b8b; font-size:12px; margin-top:10px; line-height:1.8;">
+          Переключатель вида справа не меняет ничего, кроме отрисовки: фильтр «В работе», поиск, проект, источник и период
+          остаются те же и живут в адресе — <b style="color:#e8e8e8;">/crm/leads?f=work&amp;view=table</b>. Ссылка пересылается и переживает перезагрузку (ADR-025).<br><br>
+          Канбан отвечает на «где затык», реестр — на «покажи всё и выгрузи». Поэтому оба, а не один вместо другого.<br><br>
+          <span style="color:#666;">Мобильная полоса ≤640px: закрепление колонок снимается модулем, строка превращается в карточку. Порог страницы и порог модуля — одно число, менять парой.</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+</x-dc>
+</body>
+</html>
