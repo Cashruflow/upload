@@ -1,0 +1,38 @@
+/* Приближение /theme.css: btnCss()+inpCss() из server.js на THEME_DEFAULTS,
+   ui_btn_force=1 (с !important), ui_inp_force=0 (без). */
+:root{
+  --ui-brand:#00a0ff; --ui-danger:#f87171; --ui-radius:8px;
+  --ui-btn-bg:transparent; --ui-btn-text:#cccccc; --ui-btn-border:#333333;
+  --ui-btn-hover-bg:#1f1f1f; --ui-btn-hover-text:#ffffff; --ui-btn-hover-border:#00a0ff;
+  --ui-btn1-bg:var(--ui-brand); --ui-btn1-text:#ffffff; --ui-btn1-border:var(--ui-brand);
+  --ui-btni-bg:transparent; --ui-btni-text:#8a8a8a; --ui-btni-border:transparent;
+  --ui-btni-hover-text:var(--ui-brand); --ui-btni-pad:4px; --ui-btni-radius:4px; --ui-btni-ico:15px;
+  --ui-btn-py:10px; --ui-btn-px:18px; --ui-btn-fs:13px; --ui-btn-fw:500; --ui-btn-gap:7px; --ui-btn-ico:15px;
+  --ui-inp-bg:#1a1a1a; --ui-inp-text:#ffffff; --ui-inp-border:#333333; --ui-inp-ph:#666666;
+  --ui-inp-fs:13px; --ui-inp-py:9px; --ui-inp-px:11px; --ui-inp-radius:8px;
+  --ui-page-pad-m:14px; --ui-card-radius:12px;
+}
+.tbtn:not(.primary),.btn-cancel,.btn:not(.gh):not(.ghost):not(.btn-ghost):not(.btn-gh):not(.btn-cancel):not(.btn-danger):not(.btn2):not(.tbtn),.btn-primary{
+  display:inline-flex!important;align-items:center!important;justify-content:center!important;
+  gap:var(--ui-btn-gap)!important;border-radius:var(--ui-radius)!important;border-style:solid!important;
+  border-width:1px!important;font-family:inherit!important;line-height:1.2!important;
+  font-weight:var(--ui-btn-fw)!important;white-space:nowrap;cursor:pointer;text-decoration:none;
+  padding:var(--ui-btn-py) var(--ui-btn-px)!important;font-size:var(--ui-btn-fs)!important;}
+.tbtn:not(.primary),.btn-cancel{background:var(--ui-btn-bg)!important;color:var(--ui-btn-text)!important;border:1px solid var(--ui-btn-border)!important;}
+.tbtn:not(.primary):hover,.btn-cancel:hover{background:var(--ui-btn-hover-bg)!important;color:var(--ui-btn-hover-text)!important;border-color:var(--ui-btn-hover-border)!important;}
+.btn:not(.gh):not(.ghost):not(.btn-ghost):not(.btn-gh):not(.btn-cancel):not(.btn-danger):not(.btn2):not(.tbtn),.btn-primary{
+  background:var(--ui-btn1-bg)!important;color:var(--ui-btn1-text)!important;border:1px solid var(--ui-btn1-border)!important;}
+.tbtn svg,.btn svg{width:var(--ui-btn-ico)!important;height:var(--ui-btn-ico)!important;flex-shrink:0;}
+.ibtn{display:inline-flex!important;align-items:center!important;justify-content:center!important;
+  width:auto!important;height:auto!important;padding:var(--ui-btni-pad)!important;
+  border-radius:var(--ui-btni-radius)!important;border-style:solid!important;border-width:1px!important;
+  cursor:pointer;background:var(--ui-btni-bg)!important;color:var(--ui-btni-text)!important;
+  border:1px solid var(--ui-btni-border)!important;}
+.ibtn svg{width:var(--ui-btni-ico)!important;height:var(--ui-btni-ico)!important;flex-shrink:0;}
+.ibtn > svg{color:var(--ui-btni-text)!important;opacity:1!important;}
+.ibtn:hover > svg{color:var(--ui-btni-hover-text)!important;}
+.tbtn[hidden],.btn[hidden],.btn-primary[hidden],.ibtn[hidden]{display:none!important;}
+input,select,textarea{background:var(--ui-inp-bg);color:var(--ui-inp-text);border:1px solid var(--ui-inp-border);
+  border-radius:var(--ui-inp-radius);padding:var(--ui-inp-py) var(--ui-inp-px);font-size:var(--ui-inp-fs);
+  font-family:inherit;outline:none;}
+input::placeholder{color:var(--ui-inp-ph);}
