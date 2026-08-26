@@ -87,7 +87,7 @@ const tabs = (pad) => `<div style="display:flex; gap:4px; padding:0 3px; height:
 
 /* ============================ ДО ============================
    69 (шапка) + 58 (вкладки) + 52 (проект+поиск) + 69 (селекты)
-   + 81 (плитки) + 16 (отступ) + 37 (шапка таблицы) = 382 */
+   + 81 (плитки) + 16 (отступ) + 37 (шапка таблицы); замерено в Chromium: 383 px */
 const before = `
   <div style="position:absolute; left:230px; top:0; right:0; bottom:0; display:flex; flex-direction:column; overflow:hidden;">
 
@@ -125,22 +125,22 @@ const before = `
       <table>
         ${wideCols}
         <tbody>
-          ${ROWS.slice(0, 10).map(wideRow).join('\n          ')}
+          ${ROWS.slice(0, 9).map(wideRow).join('\n          ')}
         </tbody>
       </table>
     </div>
   </div>
 
-  <div style="position:absolute; left:1104px; top:0; width:2px; height:382px; background:#e05252; border-radius:1px; z-index:5;"></div>
-  <div style="position:absolute; left:1114px; top:150px; z-index:5; background:#2a1212; border:1px solid #e05252; color:#ff9a9a; font-size:12px; font-weight:600; border-radius:6px; padding:6px 10px; line-height:1.4;">382 px до первой задачи<br><span style="font-weight:500;">половина окна 1440×760</span></div>
+  <div style="position:absolute; left:1104px; top:0; width:2px; height:383px; background:#e05252; border-radius:1px; z-index:5;"></div>
+  <div style="position:absolute; left:1114px; top:150px; z-index:5; background:#2a1212; border:1px solid #e05252; color:#ff9a9a; font-size:12px; font-weight:600; border-radius:6px; padding:6px 10px; line-height:1.4;">383 px до первой задачи<br><span style="font-weight:500;">половина окна 1440×760</span></div>
 
-  <div style="position:absolute; left:1104px; top:382px; width:2px; height:378px; background:#3a3a3a; border-radius:1px; z-index:5;"></div>
-  <div style="position:absolute; left:1114px; top:560px; z-index:5; font-size:12px; color:#6a6a6a; font-weight:500; line-height:1.4;">378 px на задачи<br>10 строк</div>
+  <div style="position:absolute; left:1104px; top:383px; width:2px; height:377px; background:#3a3a3a; border-radius:1px; z-index:5;"></div>
+  <div style="position:absolute; left:1114px; top:560px; z-index:5; font-size:12px; color:#6a6a6a; font-weight:500; line-height:1.4;">377 px на задачи<br>9 строк</div>
 
 ${fade(0)}`;
 
 /* ============================ ПОСЛЕ: панель закрыта ============================
-   63 (шапка) + 45 (чипы) + 37 (шапка таблицы) = 145 */
+   замерено в Chromium на выехавшей в прод вёрстке: 159 px до первой задачи */
 const after = `
   <div style="position:absolute; left:230px; top:0; right:0; bottom:0; display:flex; flex-direction:column; overflow:hidden;">
 
@@ -175,11 +175,11 @@ const after = `
     </div>
   </div>
 
-  <div style="position:absolute; left:1104px; top:0; width:2px; height:145px; background:#4ade80; border-radius:1px; z-index:5;"></div>
-  <div style="position:absolute; left:1114px; top:40px; z-index:5; background:#122a1c; border:1px solid #4ade80; color:#8ce8b4; font-size:12px; font-weight:600; border-radius:6px; padding:6px 10px; line-height:1.4;">145 px до первой задачи<br><span style="font-weight:500;">−237 px к прежнему</span></div>
+  <div style="position:absolute; left:1104px; top:0; width:2px; height:159px; background:#4ade80; border-radius:1px; z-index:5;"></div>
+  <div style="position:absolute; left:1114px; top:40px; z-index:5; background:#122a1c; border:1px solid #4ade80; color:#8ce8b4; font-size:12px; font-weight:600; border-radius:6px; padding:6px 10px; line-height:1.4;">159 px до первой задачи<br><span style="font-weight:500;">−224 px к прежнему</span></div>
 
-  <div style="position:absolute; left:1104px; top:145px; width:2px; height:615px; background:#3a3a3a; border-radius:1px; z-index:5;"></div>
-  <div style="position:absolute; left:1114px; top:600px; z-index:5; font-size:12px; color:#6a6a6a; font-weight:500; line-height:1.4;">615 px на задачи<br>16 строк вместо 10</div>
+  <div style="position:absolute; left:1104px; top:159px; width:2px; height:601px; background:#3a3a3a; border-radius:1px; z-index:5;"></div>
+  <div style="position:absolute; left:1114px; top:600px; z-index:5; font-size:12px; color:#6a6a6a; font-weight:500; line-height:1.4;">601 px на задачи<br>15 строк вместо 9</div>
 
 ${fade(0)}`;
 

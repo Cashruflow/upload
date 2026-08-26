@@ -1,0 +1,110 @@
+<!DOCTYPE html><html lang="ru"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Стенд /tasks</title>
+<link rel="stylesheet" href="base.css">
+<link rel="stylesheet" href="theme.css">
+<style>@media (min-width:769px){.table-wrap table{margin-top:16px;}}</style>
+
+</head><body>
+<svg style="display:none">
+  <symbol id="i-filter" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></symbol>
+  <symbol id="i-x" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18M6 6l12 12"/></symbol>
+  <symbol id="i-download" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></symbol>
+  <symbol id="i-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></symbol>
+  <symbol id="i-chevrons-left" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m11 17-5-5 5-5"/><path d="m18 17-5-5 5-5"/></symbol>
+  <symbol id="i-chevrons-right" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 17 5-5-5-5"/><path d="m13 17 5-5-5-5"/></symbol>
+</svg>
+<nav id="app-sidebar"></nav>
+
+<header>
+  <h1>Бэклог задач <span class="count" id="stats-header" style="color:#666;font-weight:normal;font-size:.62em;">(128)</span></h1>
+  <div class="hdr-actions" id="hdr-actions" style="display:flex;gap:10px;align-items:center;">
+    <button class="tbtn" id="hdr-export-btn" onclick="openExport()"><svg><use href="#i-download"></use></svg><span id="hdr-export-label">Выгрузить</span></button>
+    <button class="btn btn-primary" onclick="openModal()">+ Задача</button>
+    
+  </div>
+</header>
+
+<div class="tt-tabs" id="tt-tabs" style="display:flex;gap:6px;padding:3px;background:rgba(255,255,255,.045);border:1px solid rgba(255,255,255,.06);border-radius:8px;width:max-content;margin:14px 0 4px;">
+  <button class="tt-btn active" id="tt-tasks" onclick="ttGo('tasks')">Задачи</button>
+  <button class="tt-btn" id="tt-sprints" onclick="ttGo('sprints')">Спринты</button>
+</div>
+
+<div id="pane-tasks">
+
+<div class="search-row" id="search-row">
+  <span class="pf-wrap" style="position:relative;display:inline-flex;align-items:center;">
+    <input id="f-project" placeholder="Проект..." oninput="onProjectInput()" style="width:170px;padding-right:26px;">
+    <span id="f-project-x" onclick="clearProject()" style="display:none;position:absolute;right:9px;cursor:pointer;color:#666;font-size:15px;line-height:1;">×</span>
+  </span>
+  <input id="f-search" placeholder="Поиск..." oninput="filterLocal()">
+</div>
+<div class="toolbar" id="toolbar">
+  <span class="sel-wrap"><select id="f-status" onchange="loadTasks()"><option value="">Все статусы</option><option>Идея</option><option>Не начата</option><option>Выполняется</option><option>Готово</option></select><span class="sel-chev"><svg><use href="#i-chevron"></use></svg></span></span>
+  <span class="sel-wrap"><select id="f-type" onchange="loadTasks()"><option value="">Все типы</option><option>IT</option><option>SEO</option><option>Клиент</option></select><span class="sel-chev"><svg><use href="#i-chevron"></use></svg></span></span>
+  <span class="sel-wrap"><select id="f-priority" onchange="loadTasks()"><option value="">Все приоритеты</option><option>Срочная</option><option>Обычная</option></select><span class="sel-chev"><svg><use href="#i-chevron"></use></svg></span></span>
+  <span class="sel-wrap"><select id="f-setter" onchange="loadTasks()"><option value="">Все постановщики</option><option value="7">Константин (12)</option></select><span class="sel-chev"><svg><use href="#i-chevron"></use></svg></span></span>
+</div>
+
+<div class="stats-bar" id="stats-bar"></div>
+
+
+
+<div id="search-note" style="display:none;padding:0 24px 12px;font-size:12px;color:#777;">…</div>
+
+<div class="table-wrap">
+  <table><thead><tr><th>ID</th><th></th><th>CLD</th><th>Статус</th><th>Тип</th><th>Проект</th><th>Задача</th><th>Факт</th><th>Приоритет</th><th>Дедлайн</th></tr></thead>
+  <tbody id="tasks-body"></tbody></table>
+</div>
+</div>
+
+<div class="modal-bg" id="modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.8);z-index:100;align-items:center;justify-content:center;"><div style="background:#1a1a1a;border:1px solid #2a2a2a;border-radius:12px;padding:24px;width:640px;">Карточка задачи</div></div>
+<div id="pane-sprints" style="display:none;padding:20px 24px;">Спринты</div>
+
+<script>
+let VIEW='work';
+const VIEW_LABELS={all:'Все',work:'В работе',idea:'Идея',closed:'Закрыто',important:'Важные',claude:'Для Claude',clients:'Клиенты'};
+const VIEW_DEFS={all:1,work:1,idea:1,closed:1,important:1,claude:1,clients:1};
+function escapeHtml(s){return (s==null?'':String(s)).replace(/[&<>"]/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[m]));}
+function syncProjClear(){const e=document.getElementById('f-project'),x=document.getElementById('f-project-x');if(x)x.style.display=(e&&e.value.trim())?'block':'none';}
+function syncUrl(){syncProjClear();if(typeof fltChips==='function')fltChips();}
+function onProjectInput(){syncUrl();}
+function clearProject(){document.getElementById('f-project').value='';syncUrl();loadTasks();}
+function setView(v){VIEW=v;syncUrl();loadStats();}
+function resetView(){['f-status','f-type','f-priority','f-setter','f-search'].forEach(i=>document.getElementById(i).value='');VIEW='all';syncUrl();loadTasks();}
+function filterLocal(){syncUrl();}
+function openExport(){}function openModal(){}
+function ttGo(tab){
+  document.getElementById('pane-tasks').style.display = tab==='tasks'?'block':'none';
+  document.getElementById('pane-sprints').style.display = tab==='sprints'?'block':'none';
+  document.getElementById('tt-tasks').classList.toggle('active', tab==='tasks');
+  document.getElementById('tt-sprints').classList.toggle('active', tab==='sprints');
+  
+  
+  if(typeof fltApplyOpen==='function') fltApplyOpen();
+}
+function loadStats(){
+  const pr=(document.getElementById('f-project').value||'').trim();
+  const s={total:128,in_work:41,idea:23,closed:64,important:7,for_claude:12,clients:9};
+  document.getElementById('stats-bar').innerHTML = `
+      <button class="vw-reset" onclick="resetView()"><svg><use href="#i-x"></use></svg></button>
+      ${pr?`<div class="stat-tile" onclick="clearProject()" style="border-color:#00a0ff55;"><span class="val" style="color:#00a0ff;">${escapeHtml(pr)}</span>проект ×</div>`:''}
+      <div class="stat-tile ${VIEW==='all'?'active':''}" onclick="setView('all')"><span class="val">${s.total}</span>Все</div>
+      <div class="stat-tile ${VIEW==='work'?'active':''}" onclick="setView('work')"><span class="val">${s.in_work}</span>В работе</div>
+      <div class="stat-tile ${VIEW==='idea'?'active':''}" onclick="setView('idea')"><span class="val">${s.idea}</span>Идея</div>
+      <div class="stat-tile ${VIEW==='closed'?'active':''}" onclick="setView('closed')"><span class="val">${s.closed}</span>Закрыто</div>
+      <div class="stat-tile ${VIEW==='important'?'active':''}" onclick="setView('important')"><span class="val">${s.important}</span>Важные</div>
+      <div class="stat-tile ${VIEW==='claude'?'active':''}" onclick="setView('claude')"><span class="val">${s.for_claude}</span>Для Claude</div>
+      <div class="stat-tile ${VIEW==='clients'?'active':''}" onclick="setView('clients')"><span class="val" style="color:#4ade80;">${s.clients}</span>Клиенты</div>`;
+  if(typeof fltChips==='function') fltChips();
+}
+const ROWS=[[235,'Выполняется','s-progress','IT','Фильтры бэклога — в правую панель','85','Срочная','12.09'],[234,'Не начата','s-new','SEO','Карточки товара: h1 и мета по шаблону','—','Обычная','15.09'],[231,'Проверка','s-check','Клиент','Выгрузка остатков из 1С — сверить с сайтом','140','Обычная','10.09'],[229,'Выполняется','s-progress','Реклама','Директ: минус-слова по отчёту за август','60','Срочная','09.09'],[226,'Не начата','s-new','Research','Сравнить доставку с конкурентами по срокам','—','Обычная','—'],[224,'Не начата','s-new','IT','Форма обратного звонка — валидация телефона','—','Обычная','18.09'],[221,'Выполняется','s-progress','Create','Фотосессия новой линейки полуфабрикатов','210','Обычная','20.09'],[219,'Не начата','s-new','SEO','Пересобрать семантику по разделу «Колбасы»','—','Обычная','25.09'],[216,'Проверка','s-check','IT','Скорость каталога: отложенная загрузка картинок','95','Обычная','22.09'],[214,'Выполняется','s-progress','Клиент','Договор на сентябрь — согласовать приложение','40','Срочная','08.09'],[211,'Не начата','s-new','Реклама','Баннеры для акции «Шашлычный сезон»','—','Обычная','28.09'],[208,'Не начата','s-new','Research','Отзывы на Яндекс.Картах — схема сбора','—','Обычная','—'],[205,'Выполняется','s-progress','SEO','Перелинковка: блок «С этим покупают»','130','Обычная','30.09'],[203,'Не начата','s-new','IT','Экспорт заказов в CSV для бухгалтерии','—','Обычная','02.10'],[201,'Проверка','s-check','Create','Тексты на страницу «О производстве»','70','Обычная','05.10'],[198,'Не начата','s-new','IT','Оплата картой: вернуть чек в письме заказа','—','Срочная','07.09'],[192,'Проверка','s-check','SEO','301-е со старых адресов каталога','35','Срочная','06.09']];
+function loadTasks(){
+  document.getElementById('tasks-body').innerHTML = ROWS.map(r=>
+    `<tr><td style="color:#6ab0f5">${r[0]}</td><td style="color:#666">✎</td><td style="color:#666">—</td><td><span class="badge ${r[2]}">${r[1]}</span></td><td style="color:#666">${r[3]}</td><td>Мясной олимп</td><td>${r[4]}</td><td style="color:#666">${r[5]}</td><td class="${r[6]==='Срочная'?'p-urgent':'p-normal'}">${r[6]}</td><td style="color:#666">${r[7]}</td></tr>`).join('');
+  loadStats();
+}
+</script>
+
+<script>syncUrl();loadTasks();</script>
+</body></html>

@@ -1,0 +1,61 @@
+/* Реальные стили /tasks (строки 12–113 и 601–605 tasks.html), дословно */
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family:-apple-system,sans-serif; background:#0f0f0f; color:#fff; min-height:100vh; }
+header { padding:16px 24px; border-bottom:1px solid #222; display:flex; align-items:center; justify-content:space-between; gap:12px; }
+header h1 { font-size:18px; font-weight:600; flex:1 1 auto; min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.toolbar { padding:16px 24px; display:flex; gap:12px; align-items:center; flex-wrap:wrap; border-bottom:1px solid #1a1a1a; }
+select,input { background:#1a1a1a; border:1px solid #2a2a2a; border-radius:6px; padding:7px 12px; color:#fff; font-size:13px; outline:none; }
+.search-row { padding:16px 24px 0; display:flex; gap:12px; align-items:center; }
+.search-row .pf-wrap { flex:0 0 auto; }
+.search-row #f-search { flex:1 1 auto; min-width:0; width:auto; }
+.sel-wrap { position:relative; display:inline-flex; }
+.sel-wrap select { appearance:none; -webkit-appearance:none; padding-right:30px; }
+.sel-wrap .sel-chev { position:absolute; right:8px; top:50%; transform:translateY(-50%); width:15px; height:15px; pointer-events:none; color:var(--ui-btni-text,#8a8a8a); display:flex; }
+.sel-wrap .sel-chev svg { width:100%; height:100%; }
+.btn { border:none; border-radius:6px; padding:8px 16px; font-size:13px; font-weight:600; cursor:pointer; }
+.btn-primary { background:#fff; color:#000; }
+.table-wrap { padding:0 24px 24px; }
+table { width:100%; border-collapse:separate; border-spacing:0; margin-top:16px; font-size:13px; }
+@media (min-width:769px) { .table-wrap table { margin-top:8px; } }
+th { text-align:left; padding:10px 12px; color:#555; font-weight:500; border-bottom:1px solid #1a1a1a; white-space:nowrap; position:sticky !important; top:0 !important; background:#0f0f0f !important; z-index:5; }
+td { padding:10px 12px; border-bottom:1px solid #1a1a1a; vertical-align:top; }
+tr:hover td { background:#1a1a1a; }
+.badge { display:inline-block; padding:3px 8px; border-radius:4px; font-size:11px; font-weight:600; white-space:nowrap; }
+.s-progress { background:#1a3a2a; color:#4ade80; }
+.s-new { background:#3a3a1a; color:#fbbf24; }
+.s-check { background:#1a3333; color:#22d3ee; }
+.p-urgent { color:#ef4444; }
+.p-normal { color:#666; }
+.stats-bar { padding:14px 24px; display:flex; gap:10px; border-bottom:1px solid #1a1a1a; flex-wrap:wrap; }
+.stat-tile { background:#161616; border:1px solid #262626; border-radius:8px; padding:8px 14px; font-size:12px; color:#888; min-width:90px; cursor:pointer; }
+.stat-tile .val { font-size:18px; font-weight:700; color:#fff; display:block; }
+.stat-tile.active { border-color:#00a0ff; background:#0d1b26; color:#cfe6f5; }
+.vw-reset { background:#161616; border:1px solid #262626; border-radius:8px; color:#6a6a6a; cursor:pointer; padding:0 12px; display:flex; align-items:center; justify-content:center; }
+.vw-reset svg { width:16px; height:16px; }
+.tt-btn { padding:9px 18px; border:none; background:transparent; color:#8a8a93; font-size:13.5px; font-weight:600; font-family:inherit; border-radius:var(--ui-radius,6px); cursor:pointer; }
+.tt-btn.active { background:#262626; color:#e8e8e8; }
+/* сайдбар портала (sidebar.js): фикс 230px + отступ у body */
+:root { --sb-w:230px; }
+#app-sidebar { position:fixed; top:0; left:0; width:var(--sb-w); height:100vh; background:#0a0a0a; border-right:1px solid #1a1a1a; z-index:500; }
+body { padding-left:var(--sb-w); }
+/* мобильная раскладка бэклога — те же правила, что в tasks.html */
+@media (max-width: 768px) {
+  header, .search-row, .toolbar, .stats-bar, #search-note, .table-wrap {
+    padding-left: var(--ui-page-pad-m, 14px) !important; padding-right: var(--ui-page-pad-m, 14px) !important; }
+  body { padding-left:0; }
+  #app-sidebar { display:none; }
+  .table-wrap { padding-top:0; padding-bottom:16px; }
+  table, tbody { display:block; }
+  thead { display:none; }
+  tr { display:block; background:#1a1a1a; border:1px solid #2a2a2a; border-radius:10px; margin-top:12px; padding:12px; }
+  td { display:block; border:none; padding:3px 0; max-width:none !important; }
+  header { flex-direction:column; align-items:stretch; padding-top:12px; padding-bottom:12px; gap:10px; }
+  header .hdr-actions { width:auto; gap:10px; justify-content:flex-start; }
+  .tt-tabs { margin-left: var(--ui-page-pad-m, 14px) !important; margin-right: var(--ui-page-pad-m, 14px) !important; }
+  .search-row { padding-top:10px; flex-direction:column; align-items:stretch; gap:10px; }
+  .search-row .pf-wrap { width:100%; }
+  .search-row input, .search-row #f-project { width:100% !important; }
+  .toolbar { display:grid; grid-template-columns:1fr 1fr; gap:10px; padding-top:12px; padding-bottom:12px; }
+  .toolbar .sel-wrap { width:100%; }
+  .toolbar .sel-wrap select { width:100% !important; }
+}
