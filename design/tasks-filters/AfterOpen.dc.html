@@ -1,0 +1,191 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <style>
+    body { margin:0; font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,sans-serif;
+           background:#0f0f0f; color:#fff; -webkit-font-smoothing:antialiased; }
+    a { color:#6ab0f5; text-decoration:none; } a:hover { color:#8cc4fa; }
+
+    .sb { position:absolute; left:0; top:0; width:230px; height:100%; box-sizing:border-box;
+          background:#0a0a0a; border-right:1px solid #1a1a1a; padding:16px 0;
+          display:flex; flex-direction:column; }
+    .sb-logo { padding:6px 20px 18px; font-size:16px; font-weight:700; color:#fff;
+               display:flex; align-items:center; gap:8px; }
+    .sb-logo .v { font-size:11px; color:#555; font-weight:400; }
+    .sb-group { padding:14px 20px 6px; font-size:10px; letter-spacing:.08em; color:#555;
+                text-transform:uppercase; }
+    .sb-link { display:flex; align-items:center; gap:11px; padding:9px 20px; color:#aaa;
+               font-size:14px; border-left:3px solid transparent; box-sizing:border-box; }
+    .sb-link svg { width:18px; height:18px; flex:0 0 auto; color:#8a8a8a; fill:none;
+                   stroke:currentColor; stroke-width:1.75; stroke-linecap:round; stroke-linejoin:round; }
+    .sb-link.active { color:#00a0ff; border-left-color:#00a0ff; background:#00a0ff11; font-weight:600; }
+    .sb-link.active svg { color:#00a0ff; }
+
+    .ico { fill:none; stroke:currentColor; stroke-width:1.75; stroke-linecap:round; stroke-linejoin:round; }
+
+    .tbtn { display:inline-flex; align-items:center; justify-content:center; gap:7px; height:34px;
+            box-sizing:border-box; background:transparent; color:#cccccc; border:1px solid #333333;
+            border-radius:8px; padding:0 16px; font-size:13px; font-weight:500; white-space:nowrap; }
+    .tbtn svg { width:15px; height:15px; }
+    .ibtn { display:inline-flex; align-items:center; justify-content:center; width:34px; height:34px;
+            box-sizing:border-box; border:1px solid #333333; border-radius:8px; color:#8a8a8a;
+            background:transparent; }
+    .ibtn svg { width:15px; height:15px; }
+    .btn1 { display:inline-flex; align-items:center; justify-content:center; height:34px;
+            box-sizing:border-box; background:#00a0ff; color:#fff; border:1px solid #00a0ff;
+            border-radius:8px; padding:0 16px; font-size:13px; font-weight:500; white-space:nowrap; }
+
+    .inp { display:flex; align-items:center; gap:8px; height:36px; box-sizing:border-box;
+           background:#1a1a1a; border:1px solid #333333; border-radius:8px; padding:0 11px;
+           font-size:13px; color:#666; }
+    .inp svg { width:15px; height:15px; color:#666; flex:0 0 auto; }
+    .sel { display:flex; align-items:center; justify-content:space-between; gap:10px; height:36px;
+           box-sizing:border-box; background:#1a1a1a; border:1px solid #333333; border-radius:8px;
+           padding:0 11px; font-size:13px; color:#fff; }
+    .sel svg { width:15px; height:15px; color:#8a8a8a; flex:0 0 auto; }
+
+    .fchip { display:inline-flex; align-items:center; gap:7px; height:26px; box-sizing:border-box;
+             background:#1a1a1a; border:1px solid #333333; border-radius:8px; padding:0 9px;
+             font-size:12.5px; font-weight:500; color:#8b8b8b; white-space:nowrap; }
+    .fchip b { font-weight:600; color:#e8e8e8; }
+    .fchip .x { color:#6a6a6a; font-size:14px; line-height:1; }
+    .fchip.view { border-color:#00a0ff55; background:#0d1b26; color:#7fb9dd; }
+    .fchip.view b { color:#cfe6f5; }
+
+    table { width:100%; border-collapse:separate; border-spacing:0; font-size:13px; table-layout:fixed; }
+    th { text-align:left; padding:0 12px; height:36px; line-height:36px; color:#555; font-weight:500;
+         font-size:13px; border-bottom:1px solid #1a1a1a; white-space:nowrap; background:#0f0f0f;
+         box-sizing:border-box; }
+    td { padding:0 12px; height:36px; line-height:36px; border-bottom:1px solid #1a1a1a;
+         color:#e6e6e6; box-sizing:border-box; white-space:nowrap; overflow:hidden;
+         text-overflow:ellipsis; }
+    td.mut { color:#666; }
+    .badge { display:inline-block; padding:3px 8px; border-radius:4px; font-size:11px;
+             font-weight:600; line-height:1.2; white-space:nowrap; vertical-align:middle; }
+    .s-progress { background:#1a3a2a; color:#4ade80; }
+    .s-new      { background:#3a3a1a; color:#fbbf24; }
+    .s-idea     { background:#2a1a3a; color:#c084fc; }
+    .s-check    { background:#1a3333; color:#22d3ee; }
+    .s-done     { background:#1a2a3a; color:#00a0ff; }
+    .p-urgent { color:#ef4444; }
+    .p-normal { color:#666; }
+  </style>
+</helmet>
+
+<div style="position:relative; width:1440px; height:760px; overflow:hidden; background:#0f0f0f;">
+
+  <nav class="sb">
+    <div class="sb-logo">CashFlow <span class="v">v1.92</span></div>
+    <div class="sb-group">Работа</div>
+    <div class="sb-link"><svg class="ico" viewBox="0 0 24 24"><path d="M18 8a6 6 0 1 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg>Уведомления</div>
+    <div class="sb-link"><svg class="ico" viewBox="0 0 24 24"><path d="m3 5 2 2 3-3"/><path d="m3 12 2 2 3-3"/><path d="m3 19 2 2 3-3"/><path d="M13 6h8M13 13h8M13 20h8"/></svg>Неделя</div>
+    <div class="sb-link active"><svg class="ico" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M8 9h8M8 14h5"/></svg>Бэклог</div>
+    <div class="sb-link"><svg class="ico" viewBox="0 0 24 24"><path d="M4 20V6a2 2 0 0 1 2-2h3l2 3h7a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2z"/></svg>Проекты</div>
+    <div class="sb-link"><svg class="ico" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a15 15 0 0 1 0 18a15 15 0 0 1 0-18"/></svg>Сайты</div>
+    <div class="sb-link"><svg class="ico" viewBox="0 0 24 24"><path d="M16 20v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="3"/><path d="M22 20v-2a4 4 0 0 0-3-3.9"/></svg>Клиенты</div>
+    <div class="sb-group">AI-CRM</div>
+    <div class="sb-link"><svg class="ico" viewBox="0 0 24 24"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg>CRM — обзор</div>
+    <div class="sb-link"><svg class="ico" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>Чаты</div>
+  </nav>
+
+
+  <div style="position:absolute; left:230px; top:0; right:340px; bottom:0; display:flex; flex-direction:column; overflow:hidden;">
+
+    <header style="display:flex; align-items:center; gap:14px; height:63px; padding:0 24px; box-sizing:border-box; border-bottom:1px solid #222; flex:0 0 auto;">
+      <h1 style="margin:0; font-size:18px; font-weight:600; white-space:nowrap;">Бэклог <span style="color:#666; font-weight:400; font-size:11px;">41 / 128</span></h1>
+      <div style="display:flex; gap:4px; padding:0 3px; height:40px; align-items:center; background:rgba(255,255,255,.045); border:1px solid rgba(255,255,255,.06); border-radius:8px; box-sizing:border-box; flex:0 0 auto;">
+        <span style="display:inline-flex; align-items:center; height:34px; padding:0 16px; font-size:13px; font-weight:600; border-radius:6px; background:#262626; color:#e8e8e8;">Задачи</span>
+        <span style="display:inline-flex; align-items:center; height:34px; padding:0 16px; font-size:13px; font-weight:600; border-radius:6px; color:#8a8a93;">Спринты</span>
+      </div>
+      <div class="inp" style="flex:1 1 auto; min-width:0;"><svg class="ico" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>Поиск…</div>
+      <span class="ibtn"><svg class="ico" viewBox="0 0 24 24"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/></svg></span>
+      <span class="btn1">+ Задача</span>
+    </header>
+
+    <div style="display:flex; align-items:center; gap:8px; height:45px; padding:9px 24px 10px; box-sizing:border-box; flex:0 0 auto;">
+      <span class="fchip view">Вид: <b>В работе</b> · 41</span>
+      <span class="fchip">Проект: <b>Мясной олимп</b> <span class="x">×</span></span>
+      <span class="fchip">Приоритет: <b>Срочная</b> <span class="x">×</span></span>
+    </div>
+
+    <div style="padding:0 24px; flex:1 1 auto; min-height:0; overflow:hidden;">
+      <table>
+        <colgroup>
+          <col style="width:50px"><col style="width:40px"><col style="width:104px"><col style="width:78px">
+          <col style="width:120px"><col><col style="width:88px"><col style="width:84px">
+        </colgroup>
+        <thead><tr><th>ID</th><th></th><th>Статус</th><th>Тип</th><th>Проект</th><th>Задача</th><th>Приоритет</th><th>Дедлайн</th></tr></thead>
+        <tbody>
+          <tr><td style="color:#6ab0f5">235</td><td class="mut">✎</td><td><span class="badge s-progress">Выполняется</span></td><td class="mut">IT</td><td>Мясной олимп</td><td>Фильтры бэклога — в правую панель</td><td class="p-urgent">Срочная</td><td class="mut">12.09</td></tr>
+          <tr><td style="color:#6ab0f5">234</td><td class="mut">✎</td><td><span class="badge s-new">Не начата</span></td><td class="mut">SEO</td><td>Мясной олимп</td><td>Карточки товара: h1 и мета по шаблону</td><td class="p-normal">Обычная</td><td class="mut">15.09</td></tr>
+          <tr><td style="color:#6ab0f5">231</td><td class="mut">✎</td><td><span class="badge s-check">Проверка</span></td><td class="mut">Клиент</td><td>Мясной олимп</td><td>Выгрузка остатков из 1С — сверить с сайтом</td><td class="p-normal">Обычная</td><td class="mut">10.09</td></tr>
+          <tr><td style="color:#6ab0f5">229</td><td class="mut">✎</td><td><span class="badge s-progress">Выполняется</span></td><td class="mut">Реклама</td><td>Мясной олимп</td><td>Директ: минус-слова по отчёту за август</td><td class="p-urgent">Срочная</td><td class="mut">09.09</td></tr>
+          <tr><td style="color:#6ab0f5">226</td><td class="mut">✎</td><td><span class="badge s-idea">Идея</span></td><td class="mut">Research</td><td>Мясной олимп</td><td>Сравнить доставку с конкурентами по срокам</td><td class="p-normal">На будущее</td><td class="mut">—</td></tr>
+          <tr><td style="color:#6ab0f5">224</td><td class="mut">✎</td><td><span class="badge s-new">Не начата</span></td><td class="mut">IT</td><td>Мясной олимп</td><td>Форма обратного звонка — валидация телефона</td><td class="p-normal">Обычная</td><td class="mut">18.09</td></tr>
+          <tr><td style="color:#6ab0f5">221</td><td class="mut">✎</td><td><span class="badge s-progress">Выполняется</span></td><td class="mut">Create</td><td>Мясной олимп</td><td>Фотосессия новой линейки полуфабрикатов</td><td class="p-normal">Обычная</td><td class="mut">20.09</td></tr>
+          <tr><td style="color:#6ab0f5">219</td><td class="mut">✎</td><td><span class="badge s-new">Не начата</span></td><td class="mut">SEO</td><td>Мясной олимп</td><td>Пересобрать семантику по разделу «Колбасы»</td><td class="p-normal">Обычная</td><td class="mut">25.09</td></tr>
+          <tr><td style="color:#6ab0f5">216</td><td class="mut">✎</td><td><span class="badge s-check">Проверка</span></td><td class="mut">IT</td><td>Мясной олимп</td><td>Скорость каталога: отложенная загрузка картинок</td><td class="p-normal">Обычная</td><td class="mut">22.09</td></tr>
+          <tr><td style="color:#6ab0f5">214</td><td class="mut">✎</td><td><span class="badge s-progress">Выполняется</span></td><td class="mut">Клиент</td><td>Мясной олимп</td><td>Договор на сентябрь — согласовать приложение</td><td class="p-urgent">Срочная</td><td class="mut">08.09</td></tr>
+          <tr><td style="color:#6ab0f5">211</td><td class="mut">✎</td><td><span class="badge s-new">Не начата</span></td><td class="mut">Реклама</td><td>Мясной олимп</td><td>Баннеры для акции «Шашлычный сезон»</td><td class="p-normal">Обычная</td><td class="mut">28.09</td></tr>
+          <tr><td style="color:#6ab0f5">208</td><td class="mut">✎</td><td><span class="badge s-idea">Идея</span></td><td class="mut">Research</td><td>Мясной олимп</td><td>Отзывы на Яндекс.Картах — схема сбора</td><td class="p-normal">На будущее</td><td class="mut">—</td></tr>
+          <tr><td style="color:#6ab0f5">205</td><td class="mut">✎</td><td><span class="badge s-progress">Выполняется</span></td><td class="mut">SEO</td><td>Мясной олимп</td><td>Перелинковка: блок «С этим покупают»</td><td class="p-normal">Обычная</td><td class="mut">30.09</td></tr>
+          <tr><td style="color:#6ab0f5">203</td><td class="mut">✎</td><td><span class="badge s-new">Не начата</span></td><td class="mut">IT</td><td>Мясной олимп</td><td>Экспорт заказов в CSV для бухгалтерии</td><td class="p-normal">Обычная</td><td class="mut">02.10</td></tr>
+          <tr><td style="color:#6ab0f5">201</td><td class="mut">✎</td><td><span class="badge s-check">Проверка</span></td><td class="mut">Create</td><td>Мясной олимп</td><td>Тексты на страницу «О производстве»</td><td class="p-normal">Обычная</td><td class="mut">05.10</td></tr>
+          <tr><td style="color:#6ab0f5">198</td><td class="mut">✎</td><td><span class="badge s-new">Не начата</span></td><td class="mut">IT</td><td>Мясной олимп</td><td>Оплата картой: вернуть чек в письме заказа</td><td class="p-urgent">Срочная</td><td class="mut">07.09</td></tr>
+          <tr><td style="color:#6ab0f5">192</td><td class="mut">✎</td><td><span class="badge s-check">Проверка</span></td><td class="mut">SEO</td><td>Мясной олимп</td><td>301-е со старых адресов каталога</td><td class="p-urgent">Срочная</td><td class="mut">06.09</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <aside style="position:absolute; right:0; top:0; width:340px; height:100%; box-sizing:border-box; background:#0f0f0f; border-left:1px solid #1f1f1f; box-shadow:-18px 0 44px rgba(0,0,0,.45); display:flex; flex-direction:column;">
+
+    <div style="display:flex; align-items:center; gap:10px; height:63px; padding:0 16px; box-sizing:border-box; border-bottom:1px solid #1f1f1f; flex:0 0 auto;">
+      <span style="color:#8a8a8a; display:inline-flex;"><svg class="ico" viewBox="0 0 24 24" style="width:16px; height:16px;"><path d="M4 6h16M7 12h10M10 18h4"/></svg></span>
+      <span style="font-size:14px; font-weight:600; color:#e8e8e8;">Фильтры</span>
+      <span style="background:#00a0ff; color:#fff; font-size:11px; font-weight:700; border-radius:9px; min-width:18px; height:18px; display:inline-flex; align-items:center; justify-content:center; padding:0 5px;">3</span>
+      <span style="flex:1 1 auto;"></span>
+      <span class="ibtn" style="border-color:#2a2a2a;"><svg class="ico" viewBox="0 0 24 24"><path d="m6 17 5-5-5-5"/><path d="m13 17 5-5-5-5"/></svg></span>
+    </div>
+
+    <div style="flex:1 1 auto; min-height:0; overflow:hidden; padding:16px;">
+      <div style="font-size:11px; letter-spacing:.06em; text-transform:uppercase; color:#555; margin-bottom:9px;">Вид</div>
+      <div style="display:grid; grid-template-columns:repeat(2, minmax(0, 1fr)); gap:8px;">
+        <div style="display:flex; align-items:center; justify-content:space-between; gap:8px; height:38px; box-sizing:border-box; padding:0 11px; border-radius:8px; font-size:13px; background:#141414; border:1px solid #262626; color:#bdbdbd;">Все <b style="font-weight:700; color:#fff;">128</b></div>
+        <div style="display:flex; align-items:center; justify-content:space-between; gap:8px; height:38px; box-sizing:border-box; padding:0 11px; border-radius:8px; font-size:13px; background:#0d1b26; border:1px solid #00a0ff; color:#cfe6f5;">В работе <b style="font-weight:700; color:#fff;">41</b></div>
+        <div style="display:flex; align-items:center; justify-content:space-between; gap:8px; height:38px; box-sizing:border-box; padding:0 11px; border-radius:8px; font-size:13px; background:#141414; border:1px solid #262626; color:#bdbdbd;">Идея <b style="font-weight:700; color:#fff;">23</b></div>
+        <div style="display:flex; align-items:center; justify-content:space-between; gap:8px; height:38px; box-sizing:border-box; padding:0 11px; border-radius:8px; font-size:13px; background:#141414; border:1px solid #262626; color:#bdbdbd;">Закрыто <b style="font-weight:700; color:#fff;">64</b></div>
+        <div style="display:flex; align-items:center; justify-content:space-between; gap:8px; height:38px; box-sizing:border-box; padding:0 11px; border-radius:8px; font-size:13px; background:#141414; border:1px solid #262626; color:#bdbdbd;">Важные <b style="font-weight:700; color:#fff;">7</b></div>
+        <div style="display:flex; align-items:center; justify-content:space-between; gap:8px; height:38px; box-sizing:border-box; padding:0 11px; border-radius:8px; font-size:13px; background:#141414; border:1px solid #262626; color:#bdbdbd;">Для Claude <b style="font-weight:700; color:#fff;">12</b></div>
+      </div>
+      <div style="margin-top:8px;"><div style="display:flex; align-items:center; justify-content:space-between; gap:8px; height:38px; box-sizing:border-box; padding:0 11px; border-radius:8px; font-size:13px; background:#141414; border:1px solid #262626; color:#bdbdbd;">Клиенты <b style="font-weight:700; color:#fff;">9</b></div></div>
+
+      <div style="height:1px; background:#1a1a1a; margin:18px 0;"></div>
+
+      <div style="font-size:11px; letter-spacing:.06em; text-transform:uppercase; color:#555; margin-bottom:10px;">Срез</div>
+      <div style="display:flex; flex-direction:column; gap:12px;">
+        <div><div style="font-size:12px; color:#8a8a8a; margin:0 0 5px;">Проект</div><div style="display:flex; align-items:center; justify-content:space-between; gap:10px; height:38px; box-sizing:border-box; padding:0 11px; background:#1a1a1a; border:1px solid #00a0ff; border-radius:8px; font-size:13px; color:#fff;">Мясной олимп <span style="color:#666; font-size:15px;">×</span></div></div>
+        <div><div style="font-size:12px; color:#8a8a8a; margin:0 0 5px;">Статус</div><div style="display:flex; align-items:center; justify-content:space-between; gap:10px; height:38px; box-sizing:border-box; padding:0 11px; background:#1a1a1a; border:1px solid #333333; border-radius:8px; font-size:13px; color:#666;">Все статусы <svg class="ico" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg></div></div>
+        <div><div style="font-size:12px; color:#8a8a8a; margin:0 0 5px;">Тип</div><div style="display:flex; align-items:center; justify-content:space-between; gap:10px; height:38px; box-sizing:border-box; padding:0 11px; background:#1a1a1a; border:1px solid #333333; border-radius:8px; font-size:13px; color:#666;">Все типы <svg class="ico" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg></div></div>
+        <div><div style="font-size:12px; color:#8a8a8a; margin:0 0 5px;">Приоритет</div><div style="display:flex; align-items:center; justify-content:space-between; gap:10px; height:38px; box-sizing:border-box; padding:0 11px; background:#1a1a1a; border:1px solid #00a0ff; border-radius:8px; font-size:13px; color:#fff;">Срочная <svg class="ico" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg></div></div>
+        <div><div style="font-size:12px; color:#8a8a8a; margin:0 0 5px;">Постановщик</div><div style="display:flex; align-items:center; justify-content:space-between; gap:10px; height:38px; box-sizing:border-box; padding:0 11px; background:#1a1a1a; border:1px solid #333333; border-radius:8px; font-size:13px; color:#666;">Все постановщики <svg class="ico" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg></div></div>
+      </div>
+    </div>
+
+    <div style="flex:0 0 auto; border-top:1px solid #1f1f1f; padding:13px 16px; display:flex; align-items:center; gap:12px;">
+      <span class="tbtn"><svg class="ico" viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></svg>Сбросить всё</span>
+      <span style="font-size:11px; color:#555; line-height:1.35;">Применяется<br>сразу</span>
+    </div>
+  </aside>
+
+  <div style="position:absolute; left:230px; right:340px; bottom:0; height:56px; background:linear-gradient(to bottom, rgba(15,15,15,0), #0f0f0f); pointer-events:none;"></div>
+</div>
+</x-dc>
+</body>
+</html>

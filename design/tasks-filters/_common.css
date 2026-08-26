@@ -1,0 +1,67 @@
+    body { margin:0; font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,sans-serif;
+           background:#0f0f0f; color:#fff; -webkit-font-smoothing:antialiased; }
+    a { color:#6ab0f5; text-decoration:none; } a:hover { color:#8cc4fa; }
+
+    .sb { position:absolute; left:0; top:0; width:230px; height:100%; box-sizing:border-box;
+          background:#0a0a0a; border-right:1px solid #1a1a1a; padding:16px 0;
+          display:flex; flex-direction:column; }
+    .sb-logo { padding:6px 20px 18px; font-size:16px; font-weight:700; color:#fff;
+               display:flex; align-items:center; gap:8px; }
+    .sb-logo .v { font-size:11px; color:#555; font-weight:400; }
+    .sb-group { padding:14px 20px 6px; font-size:10px; letter-spacing:.08em; color:#555;
+                text-transform:uppercase; }
+    .sb-link { display:flex; align-items:center; gap:11px; padding:9px 20px; color:#aaa;
+               font-size:14px; border-left:3px solid transparent; box-sizing:border-box; }
+    .sb-link svg { width:18px; height:18px; flex:0 0 auto; color:#8a8a8a; fill:none;
+                   stroke:currentColor; stroke-width:1.75; stroke-linecap:round; stroke-linejoin:round; }
+    .sb-link.active { color:#00a0ff; border-left-color:#00a0ff; background:#00a0ff11; font-weight:600; }
+    .sb-link.active svg { color:#00a0ff; }
+
+    .ico { fill:none; stroke:currentColor; stroke-width:1.75; stroke-linecap:round; stroke-linejoin:round; }
+
+    .tbtn { display:inline-flex; align-items:center; justify-content:center; gap:7px; height:34px;
+            box-sizing:border-box; background:transparent; color:#cccccc; border:1px solid #333333;
+            border-radius:8px; padding:0 16px; font-size:13px; font-weight:500; white-space:nowrap; }
+    .tbtn svg { width:15px; height:15px; }
+    .ibtn { display:inline-flex; align-items:center; justify-content:center; width:34px; height:34px;
+            box-sizing:border-box; border:1px solid #333333; border-radius:8px; color:#8a8a8a;
+            background:transparent; }
+    .ibtn svg { width:15px; height:15px; }
+    .btn1 { display:inline-flex; align-items:center; justify-content:center; height:34px;
+            box-sizing:border-box; background:#00a0ff; color:#fff; border:1px solid #00a0ff;
+            border-radius:8px; padding:0 16px; font-size:13px; font-weight:500; white-space:nowrap; }
+
+    .inp { display:flex; align-items:center; gap:8px; height:36px; box-sizing:border-box;
+           background:#1a1a1a; border:1px solid #333333; border-radius:8px; padding:0 11px;
+           font-size:13px; color:#666; }
+    .inp svg { width:15px; height:15px; color:#666; flex:0 0 auto; }
+    .sel { display:flex; align-items:center; justify-content:space-between; gap:10px; height:36px;
+           box-sizing:border-box; background:#1a1a1a; border:1px solid #333333; border-radius:8px;
+           padding:0 11px; font-size:13px; color:#fff; }
+    .sel svg { width:15px; height:15px; color:#8a8a8a; flex:0 0 auto; }
+
+    .fchip { display:inline-flex; align-items:center; gap:7px; height:26px; box-sizing:border-box;
+             background:#1a1a1a; border:1px solid #333333; border-radius:8px; padding:0 9px;
+             font-size:12.5px; font-weight:500; color:#8b8b8b; white-space:nowrap; }
+    .fchip b { font-weight:600; color:#e8e8e8; }
+    .fchip .x { color:#6a6a6a; font-size:14px; line-height:1; }
+    .fchip.view { border-color:#00a0ff55; background:#0d1b26; color:#7fb9dd; }
+    .fchip.view b { color:#cfe6f5; }
+
+    table { width:100%; border-collapse:separate; border-spacing:0; font-size:13px; table-layout:fixed; }
+    th { text-align:left; padding:0 12px; height:36px; line-height:36px; color:#555; font-weight:500;
+         font-size:13px; border-bottom:1px solid #1a1a1a; white-space:nowrap; background:#0f0f0f;
+         box-sizing:border-box; }
+    td { padding:0 12px; height:36px; line-height:36px; border-bottom:1px solid #1a1a1a;
+         color:#e6e6e6; box-sizing:border-box; white-space:nowrap; overflow:hidden;
+         text-overflow:ellipsis; }
+    td.mut { color:#666; }
+    .badge { display:inline-block; padding:3px 8px; border-radius:4px; font-size:11px;
+             font-weight:600; line-height:1.2; white-space:nowrap; vertical-align:middle; }
+    .s-progress { background:#1a3a2a; color:#4ade80; }
+    .s-new      { background:#3a3a1a; color:#fbbf24; }
+    .s-idea     { background:#2a1a3a; color:#c084fc; }
+    .s-check    { background:#1a3333; color:#22d3ee; }
+    .s-done     { background:#1a2a3a; color:#00a0ff; }
+    .p-urgent { color:#ef4444; }
+    .p-normal { color:#666; }
